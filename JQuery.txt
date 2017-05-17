@@ -1,0 +1,189 @@
+<header>
+	<h1>Inside Header</h1>
+</header>
+
+
+<script>
+	$(function(){
+
+	//Parent/Child
+		$('header>h1').text("Parent Child");
+	});
+
+
+
+
+
+<header>
+	<div>
+		<h1>Inside Header</h1>
+	</div>
+</header>
+
+
+<script>
+	$(function(){
+
+	//Descendant/Not a Direct Child-Parent relation
+		$('header h1').text("Descendant");
+	});
+
+
+//Previous And Next Elements
+	
+	<div style="color:black" class="stop">First</div>
+	<div style="color:black">Second</div>
+	<div style="color:black">Third</div>
+	<div style="color:black" id="target">Fourth(Target)</div>
+	<div style="color:black" class="stop">Fifth</div>
+
+	<script>
+		$(function(){
+
+	//update previous element
+		$('#target').prev().attr('style','color:red');
+
+	//update all previous element
+		$('#target').prevAll().attr('style','color:red');
+
+	//update previous elements until stop
+		$('#target').prevUntil('.stop').attr('style','color:red');
+
+	
+	//update next element
+		$('#target').next().attr('style','color:red');
+
+	//update all next elements
+		$('#target').nextAll().attr('style','color:red');
+
+	//update next element until stop
+		$('#target').nextUntil('.stop').attr('style','color:red');
+	});
+
+
+//Position Elements
+	
+	<div id="container">
+		<div style="color:black">First</div>
+		<div style="color:black">Second</div>
+		<div style="color:black">Third</div>
+		<div style="color:black" id="target">Fourth(Target)</div>
+		<div style="color:black">Fifth</div>
+	</div>
+
+	<script>
+		$(function(){
+			var element = $('#target');
+			var container = $('#container')';
+
+			var index = container.children.index('element');
+	//Displaying the index 
+			$('#display').text('Index IS :'+index);
+	
+		//GET returns a DOM object **NOT** a jquery object
+			var getElement  = container.children().get(index);
+		
+		//Converting to JQuery
+			var jQueryObject = $('getElement');
+			jQueryObject.attr('style','color:red');
+
+		});
+	</script>
+
+
+//Adding And removing Classes
+
+	<style>
+		.red{
+			color:red;
+		}
+		
+		blue{
+			color: blue;
+		}
+	</style>
+
+	<body>
+		<div id="target" class="blue">Demo element</div>
+	
+
+	<script>
+		$(function(){
+	//Adding Class
+		$('#target').addClass('blue');
+		$('#target').addClass('red');
+	//Removing Class
+		$('#target').removeClass('blue');
+
+	});
+	</script>
+</body>	
+
+
+//Modifying Attribute 
+
+	<script>
+		$(function(){
+
+	//Updating Attribute Value
+		$('#target').attr('style','color:red');
+
+	//Read Attribute Value
+		var style = $('#target').attr('style');
+			alert(style);
+
+	//Remove Attribute Value
+		$('#target').removeAttr('style');
+
+	});
+	</script>
+
+
+	
+//MOdifying Text And HTML
+	<script>
+		$(function(){
+
+			$('target').text('Updated!!');
+
+			$('target').html('<u>Updated!</u>');
+		});
+
+	</script>
+
+	
+
+//Event Handlers
+
+	<div id="target"">Demo element</div>
+	<div id="display">Another Demo</div>
+	
+	<script>
+		$('#target').click(function (){
+			
+		//Click event handler for div element
+		$('#display').text('Div Has Been Clicked');
+		
+		});
+
+
+	//For All Div Elements But this doesn't specifies which div element 
+		$('div').click(function (){
+			alert('div has been clicked');
+		)};
+	
+
+		$('div').click(function (){
+		
+	//This is the **DOM element** of the item that raised the event
+	//Convert to JQuery object
+
+		$(this).text('Clicked');
+
+		)};
+	
+	</script>
+
+	
+
+	
