@@ -1,0 +1,277 @@
+Features Of Java:
+------------------
+
+Platform Independant:
+
+Source File(Hai.java)
+
+javac Hai.java
+
+HelloWorld.class(byte code)
+
+
+JVM
+
+java HelloWorld
+
+
+
+Access Specifiers:
+
+
+Package1;
+
+public class A {
+    protected int x;
+    void display() {
+        syso("hello world");
+    } 
+
+	class X {
+	}
+}
+
+package2;
+static class B extends A{
+}
+class C {
+}
+
+
+1. default data not available outside package
+
+2. public data available for all the classes in same and different packages.
+
+3. private data can access in same class even in same package
+
+4. protected data can access by all the classes from same package and only child classess can access protected data from outside the package.
+
+
+
+What are valid specifiers or modifiers to class definition?
+
+
+public and default
+
+Static:
+=======
+
+
+
+static data:		class data
+
+
+non-static data:	object
+
+
+
+1. not-static methods can access non-static data and can also access static data
+
+2. static methods can access static data but to access non-static(instance) data we need to create an object
+
+
+
+Class A {
+	int x = 4;
+	static int y = 5;
+}
+
+
+
+
+
+A a1 = new A();
+a1. x = 10;
+a1.y = 6;
+
+A a2 = new A();
+a2.x = 11;
+a2.y = 7;
+
+A a3 = new A();
+syso(a3.x);
+syso(a3.y);
+
+
+System.gc();
+
+4
+7
+
+
+Heap:
+
+JVM  --> Garbage Collector [gc()] --> finalize()
+
+
+
+
+
+
+How can we make objects eligible for garbage collection?
+
+A a4 = new A();
+a4 = null;
+
+
+
+void: it's a return type
+
+all the primitives:  byte, short, int, long, float, double, char, boolean(true, false)
+
+
+
+Command-Line arguments:
+
+
+javac filename.java
+
+
+java HelloWorld 123 rakesh
+
+
+
+no specific order to use access modifier or specifier but we must use return types before to the method name in the signature.
+
+
+
+
+Today topics that we discussed are: 
+1. Access Modifiers-public, private, protected, default(not a keyword)
+2. static and non-static differences
+3. Garbage Collector
+4. Command line arguments
+5. method return types
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+public:         
+
+private
+
+protected
+
+
+
+
+
