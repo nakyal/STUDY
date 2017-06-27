@@ -1,0 +1,97 @@
+Interfaces:
+
+-- fully unimplemented class
+-- it has only abstract methods
+-- contains only constants (final varialbes ) no fileds(instance variables)
+-- we use keyword 'interface' to define interfaces in java
+
+
+interface A {
+
+}
+
+A.java
+
+javac A.java
+
+A.class  for an interface 
+
+
+
+-- in interface, every method by default public and abstract
+-- public is only modifier allowed in inerface methods
+
+
+1. if class is not implementing all the methods of an interface then the class becomes abstract we must declare class as abstract using keyword 'abstract'.
+
+2. if class contains abstract methods then class becomes an abstract we use keyword abstract explicitly with class declaration
+
+3. if you don't want to allow someone to create an object for the class the declare class as abstract.
+
+4. abstract classes can not be instantiated.
+
+5. we can execute abstract classes with main method.
+
+
+
+final:
+-- it is a keyword in java
+1. w.r.t to variable:
+   final int x;  // not valid statement
+   final int x = 5; // valid
+
+2. w.r.t to method
+
+   public final void display() {
+   }
+   -- final methods can not be overriden
+
+
+3. w.r.t to class
+
+  public final class A {
+  }
+
+  class B extends A {} // not valid
+
+ -- final classes can not be extended.
+
+
+
+Q: can i use final and abstract both with the class?
+
+A: No. Abstract classes always needs child classes and final classes always be the sub most child class and it can not become a parent class
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+concrete and abstract
+
+
+
+
+
