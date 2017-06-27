@@ -1,0 +1,450 @@
+Please solve below objectives then we will have a discussion on doubtful topics.
+ 
+1. Given:
+public class Flipper {
+public static void main(String[] args) {
+String o = "-";
+switch("FRED".toLowerCase().substring(1,3)) {
+case "yellow":
+o += "y";
+case "red":
+o += "r";
+case "green":
+o += "g";
+}
+System.out.println(o);
+}
+}
+What is the result?
+A. -
+B. -r
+C. -rg
+D. Compilation fails
+E. An exception is thrown at runtime
+================================================
+ 
+2. Given:
+public class Flip2 {
+public static void main(String[] args) {
+String o = "-";
+String[] sa = new String[4];
+for(int i = 0; i < args.length; i++)
+sa[i] = args[i];
+for(String n: sa) {
+switch(n.toLowerCase()) {
+case "yellow": o += "y";
+case "red": o += "r";
+case "green": o += "g";
+}
+}
+System.out.print(o);
+}
+}
+And given the command-line invocation:
+Java Flip2 RED Green YeLLow
+Which are true? (Choose all that apply.)
+A. The string rgy will appear somewhere in the output
+B. The string rgg will appear somewhere in the output
+C. The string gyr will appear somewhere in the output
+D. Compilation fails
+E. An exception is thrown at runtime
+====================================================
+ 
+3. Given:
+ 
+1. class Loopy {
+2. public static void main(String[] args) {
+3. int[] x = {7,6,5,4,3,2,1};
+4. // insert code here
+5. System.out.print(y + " ");
+6. }
+7. }
+8. }
+Which, inserted independently at line 4, compiles? (Choose all that apply.)
+A. for(int y : x) {
+B. for(x : int y) {
+C. int y = 0; for(y : x) {
+D. for(int y=0, z=0; z<x.length; z++) { y = x[z];
+E. for(int y=0, int z=0; z<x.length; z++) { y = x[z];
+F. int y = 0; for(int z=0; z<x.length; z++) { y = x[z];
+=================================================================
+ 
+4. Given
+ 
+3. public class Circles {
+4. public static void main(String[] args) {
+5. int[] ia = {1,3,5,7,9};
+6. for(int x : ia) {
+7. for(int j = 0; j < 3; j++) {
+8. if(x > 4 && x < 8) continue;
+9. System.out.print(" " + x);
+10. if(j == 1) break;
+11. continue;
+12. }
+13. continue;
+14. }
+15. }
+16. }
+What is the result?
+A. 1 3 9
+B. 5 5 7 7
+C. 1 3 3 9 9
+D. 1 1 3 3 9 9
+E. 1 1 1 3 3 3 9 9 9
+F. Compilation fails
+======================================================
+ 
+5. Given:
+ 
+3. public class Wind {
+4. public static void main(String[] args) {
+5. foreach:
+6. for(int j=0; j<5; j++) {
+7. for(int k=0; k< 3; k++) {
+8. System.out.print(" " + j);
+9. if(j==3 && k==1) break foreach;
+10. if(j==0 || j==2) break;
+11. }
+12. }
+13. }
+14. }
+What is the result?
+A. 0 1 2 3
+B.1 1 1 3 3
+C. 0 1 1 1 2 3 3
+D. 1 1 1 3 3 4 4 4
+E. 0 1 1 1 2 3 3 4 4 4
+F. Compilation fails
+=========================================
+ 
+6. Given the code snippet:
+ 
+String s = "bob";
+String[] sa = {"a", "bob"};
+final String s2 = "bob";
+StringBuilder sb = new StringBuilder("bob");
+// switch(sa[1]) { // line 1
+// switch("b" + "ob") { // line 2
+// switch(sb.toString()) { // line 3
+// case "ann": ; // line 4
+// case s: ; // line 5
+// case s2: ; // line 6
+}
+And given that the numbered lines will all be tested by un-commenting one switch statement
+and one case statement together, which line(s) will FAIL to compile? (Choose all that apply.)
+A. line 1
+B. line 2
+C. line 3
+D. line 4
+E. line 5
+F. line 6
+G. All six lines of code will compile
+=============================================================
+ 
+7. Given:
+class CardBoard {
+Short story = 200;
+CardBoard go(CardBoard cb) {
+cb = null;
+return cb;
+}
+public static void main(String[] args) {
+CardBoard c1 = new CardBoard();
+CardBoard c2 = new CardBoard();
+CardBoard c3 = c1.go(c2);
+c1 = null;
+// do Stuff
+} }
+When // do Stuff is reached, how many objects are eligible for garbage collection?
+A. 0
+B. 1
+C. 2
+D. Compilation fails
+E. It is not possible to know
+F. An exception is thrown at runtime
+===================================================================
+ 
+8. Given:
+public class Fishing {
+byte b1 = 4;
+int i1 = 123456;
+long L1 = (long)i1; // line A
+short s2 = (short)i1; // line B
+byte b2 = (byte)i1; // line C
+int i2 = (int)123.456; // line D
+byte b3 = b1 + 7; // line E
+}
+Which lines WILL NOT compile? (Choose all that apply.)
+A. Line A
+B. Line B
+C. Line C
+D. Line D
+E. Line E
+=================================================
+ 
+9. Given:
+public class Literally {
+public static void main(String[] args) {
+int i1 = 1_000; // line A
+int i2 = 10_00; // line B
+int i3 = _10_000; // line C
+int i4 = 0b101010; // line D
+int i5 = 0B10_1010; // line E
+int i6 = 0x2_a; // line F
+}
+}
+Which lines WILL NOT compile? (Choose all that apply.)
+A. Line A
+B. Line B
+C. Line C
+D. Line D
+E. Line E
+F. Line F
+======================================================================
+ 
+10. Given:
+class Mixer {
+Mixer() { }
+Mixer(Mixer m) { m1 = m; }
+Mixer m1;
+public static void main(String[] args) {
+Mixer m2 = new Mixer();
+Mixer m3 = new Mixer(m2); m3.go();
+Mixer m4 = m3.m1; m4.go();
+Mixer m5 = m2.m1; m5.go();
+}
+void go() { System.out.print("hi "); }
+}
+What is the result?
+A. hi
+B. hi hi
+C. hi hi hi
+D. Compilation fails
+E. hi, followed by an exception
+F. hi hi, followed by an exception
+=================================================================
+ 
+11. Given:
+class Fizz {
+int x = 5;
+public static void main(String[] args) {
+final Fizz f1 = new Fizz();
+Fizz f2 = new Fizz();
+Fizz f3 = FizzSwitch(f1,f2);
+System.out.println((f1 == f3) + " " + (f1.x == f3.x));
+}
+static Fizz FizzSwitch(Fizz x, Fizz y) {
+final Fizz z = x;
+z.x = 6;
+return z;
+} }
+What is the result?
+A. true true
+B. false true
+C. true false
+D. false false
+E. Compilation fails
+F. An exception is thrown at runtime
+===============================================================
+ 
+12. Given:
+public class Mirror {
+int size = 7;
+public static void main(String[] args) {
+Mirror m1 = new Mirror();
+Mirror m2 = m1;
+int i1 = 10;
+int i2 = i1;
+go(m2, i2);
+System.out.println(m1.size + " " + i1);
+}
+static void go(Mirror m, int i) {
+m.size = 8;
+i = 12;
+}
+}
+What is the result?
+A. 7 10
+B. 8 10
+C. 7 12
+D. 8 12
+E. Compilation fails
+F. An exception is thrown at runtime
+===========================================================================
+ 
+13. Given:
+public class Wind {
+int id;
+Wind(int i) { id = i; }
+public static void main(String[] args) {
+new Wind(3).go();
+// commented line
+}
+void go() {
+Wind w1 = new Wind(1);
+Wind w2 = new Wind(2);
+System.out.println(w1.id + " " + w2.id);
+}
+}
+When execution reaches the commented line, which are true? (Choose all that apply.)
+A. The output contains 1
+B. The output contains 2
+C. The output contains 3
+D. Zero objects are eligible for garbage collection
+E. One object is eligible for garbage collection
+F. Two objects are eligible for garbage collection
+G. Three objects are eligible for garbage collection
+=================================================================================
+ 
+14. Given:
+3. public class Ouch {
+4. static int ouch = 7;
+5. public static void main(String[] args) {
+6. new Ouch().go(ouch);
+7. System.out.print(" " + ouch);
+8. }
+9. void go(int ouch) {
+10. ouch++;
+11. for(int ouch = 3; ouch < 6; ouch++)
+12. ;
+13. System.out.print(" " + ouch);
+14. }
+15. }
+What is the result?
+A. 5 7
+B. 5 8
+C. 8 7
+D. 8 8
+E. Compilation fails
+F. An exception is thrown at runtime
+==================================================================
+ 
+15. Given:
+public class Happy {
+int id;
+Happy(int i) { id = i; }
+public static void main(String[] args) {
+Happy h1 = new Happy(1);
+Happy h2 = h1.go(h1);
+System.out.println(h2.id);
+}
+Happy go(Happy h) {
+Happy h3 = h;
+h3.id = 2;
+h1.id = 3;
+return h1;
+}
+}
+What is the result?
+A. 1
+B. 2
+C. 3
+D. Compilation fails
+E. An exception is thrown at runtime
+======================================================================
+ 
+16. Given:
+public class Network {
+Network(int x, Network n) {
+id = x;
+p = this;
+if(n != null) p = n;
+}
+int id;
+Network p;
+public static void main(String[] args) {
+Network n1 = new Network(1, null);
+n1.go(n1);
+}
+void go(Network n1) {
+Network n2 = new Network(2, n1);
+Network n3 = new Network(3, n2);
+System.out.println(n3.p.p.id);
+}
+}
+What is the result?
+A. 1
+B. 2
+C. 3
+D. null
+E. Compilation fails
+===========================================================
+ 
+17. Given:
+3. class Beta { }
+4. class Alpha {
+5. static Beta b1;
+6. Beta b2;
+7. }
+8. public class Tester {
+9. public static void main(String[] args) {
+10. Beta b1 = new Beta(); Beta b2 = new Beta();
+11. Alpha a1 = new Alpha(); Alpha a2 = new Alpha();
+12. a1.b1 = b1;
+13. a1.b2 = b1;
+14. a2.b2 = b2;
+15. a1 = null; b1 = null; b2 = null;
+16. // do stuff
+17. }
+18. }
+When line 16 is reached, how many objects will be eligible for garbage collection?
+A. 0
+B. 1
+C. 2
+D. 3
+E. 4
+F. 5
+========================================================================
+ 
+18. Given:
+public class Telescope {
+static int magnify = 2;
+public static void main(String[] args) {
+go();
+}
+static void go() {
+int magnify = 3;
+zoomIn();
+}
+static void zoomIn() {
+magnify *= 5;
+zoomMore(magnify);
+System.out.println(magnify);
+}
+static void zoomMore(int magnify) {
+magnify *= 7;
+}
+}
+What is the result?
+A. 2
+B. 10
+C. 15
+D. 30
+E. 70
+F. 105
+G. Compilation fails
+===============================================================
+ 
+19. Given:
+3. public class Dark {
+4. int x = 3;
+5. public static void main(String[] args) {
+6. new Dark().go1();
+7. }
+8. void go1() {
+9. int x;
+10. go2(++x);
+11. }
+12. void go2(int y) {
+13. int x = ++y;
+14. System.out.println(x);
+15. }
+16. }
+What is the result?
+A. 2
+B. 3
+C. 4
+D. 5
+E. Compilation fails
+F. An exception is thrown at runtime
+ 
