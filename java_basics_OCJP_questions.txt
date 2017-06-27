@@ -1,0 +1,212 @@
+1. Which are true? (Choose all that apply.)
+A. "X extends Y" is correct if and only if X is a class and Y is an interface.
+B. "X extends Y" is correct if and only if X is an interface and Y is a class.
+C. "X extends Y" is correct if X and Y are either both classes or both interfaces.
+D. "X extends Y" is correct for all combinations of X and Y being classes and/or interfaces.
+===========================================
+
+2. Given:
+class Rocket {
+private void blastOff() { System.out.print("bang "); }
+}
+public class Shuttle extends Rocket {
+public static void main(String[] args) {
+new Shuttle().go();
+}
+void go() {
+blastOff();
+// Rocket.blastOff(); // line A
+}
+private void blastOff() { System.out.print("sh-bang "); }
+}
+Which are true? (Choose all that apply.)
+A. As the code stands, the output is bang
+B. As the code stands, the output is sh-bang
+C. As the code stands, compilation fails.
+D. If line A is uncommented, the output is bang bang
+E. If line A is uncommented, the output is sh-bang bang
+F. If line A is uncommented, compilation fails.
+================================
+
+3. Given that the for loop's syntax is correct, and given:
+import static java.lang.System.*;
+class _ {
+static public void main(String[] __A_V_) {
+String $ = "";
+for(int x=0; ++x < __A_V_.length; ) // for loop
+$ += __A_V_[x];
+out.println($);
+}
+}
+And the command line:
+java _ - A .
+What is the result?
+A. -A
+B. A.
+C. -A.
+D. _A.
+E. _-A.
+F. Compilation fails
+G. An exception is thrown at runtime
+======================================
+
+4. Given:
+1. enum Animals {
+2. DOG("woof"), CAT("meow"), FISH("burble");
+3. String sound;
+4. Animals(String s) { sound = s; }
+5. }
+6. class TestEnum {
+7. static Animals a;
+8. public static void main(String[] args) {
+9. System.out.println(a.DOG.sound + " " + a.FISH.sound);
+10. }
+11. }
+What is the result?
+A. woof burble
+B. Multiple compilation errors
+C. Compilation fails due to an error on line 2
+D. Compilation fails due to an error on line 3
+E. Compilation fails due to an error on line 4
+F. Compilation fails due to an error on line 9
+=============================================
+
+5. Given two files:
+1. package pkgA;
+2. public class Foo {
+3. int a = 5;
+4. protected int b = 6;
+5. public int c = 7;
+6. }
+3. package pkgB;
+4. import pkgA.*;
+5. public class Baz {
+6. public static void main(String[] args) {
+7. Foo f = new Foo();
+8. System.out.print(" " + f.a);
+9. System.out.print(" " + f.b);
+10. System.out.println(" " + f.c);
+11. }
+12. }
+What is the result? (Choose all that apply.)
+A. 5 6 7
+B. 5 followed by an exception
+C. Compilation fails with an error on line 7
+D. Compilation fails with an error on line 8
+E. Compilation fails with an error on line 9
+F. Compilation fails with an error on line 10
+=======================================
+
+6. Given:
+1. public class Electronic implements Device
+{ public void doIt() { } }
+2.
+3. abstract class Phone1 extends Electronic { }
+4.
+5. abstract class Phone2 extends Electronic
+{ public void doIt(int x) { } }
+6.
+7. class Phone3 extends Electronic implements Device
+{ public void doStuff() { } }
+8.
+9. interface Device { public void doIt(); }
+What is the result? (Choose all that apply.)
+A. Compilation succeeds
+B. Compilation fails with an error on line 1
+C. Compilation fails with an error on line 3
+D. Compilation fails with an error on line 5
+E. Compilation fails with an error on line 7
+F. Compilation fails with an error on line 9
+=======================================
+
+7. Given:
+4. class Announce {
+5. public static void main(String[] args) {
+6. for(int __x = 0; __x < 3; __x++) ;
+7. int #lb = 7;
+8. long [] x [5];
+9. Boolean []ba[];
+10. }
+11. }
+What is the result? (Choose all that apply.)
+A. Compilation succeeds
+B. Compilation fails with an error on line 6
+C. Compilation fails with an error on line 7
+D. Compilation fails with an error on line 8
+E. Compilation fails with an error on line 9
+==============================
+
+8. Given:
+3. public class TestDays {
+4. public enum Days { MON, TUE, WED };
+5. public static void main(String[] args) {
+6. for(Days d : Days.values() )
+7. ;
+8. Days [] d2 = Days.values();
+9. System.out.println(d2[2]);
+10. }
+11. }
+What is the result? (Choose all that apply.)
+A. TUE
+B. WED
+C. The output is unpredictable
+D. Compilation fails due to an error on line 4
+E. Compilation fails due to an error on line 6
+F. Compilation fails due to an error on line 8
+G. Compilation fails due to an error on line 9
+=============================================
+
+9. Given:
+4. public class Frodo extends Hobbit
+5. public static void main(String[] args) {
+6. int myGold = 7;
+7. System.out.println(countGold(myGold, 6));
+8. }
+9. }
+10. class Hobbit {
+11. int countGold(int x, int y) { return x + y; }
+12. }
+What is the result?
+A. 13
+B. Compilation fails due to multiple errors
+C. Compilation fails due to an error on line 6
+D. Compilation fails due to an error on line 7
+E. Compilation fails due to an error on line 11
+==============================================
+
+10. Given:
+interface Gadget {
+void doStuff();
+}
+abstract class Electronic {
+void getPower() { System.out.print("plug in "); }
+}
+public class Tablet extends Electronic implements Gadget {
+void doStuff() { System.out.print("show book "); }
+public static void main(String[] args) {
+new Tablet().getPower();
+new Tablet().doStuff();
+}
+}
+Which are true? (Choose all that apply.)
+A. The class Tablet will NOT compile
+B. The interface Gadget will NOT compile
+C. The output will be plug in show book
+D. The abstract class Electronic will NOT compile
+E. The class Tablet CANNOT both extend and implement
+=======================================
+
+11. Given that the Integer class is in the java.lang package, and given:
+1. // insert code here
+2. class StatTest {
+3. public static void main(String[] args) {
+4. System.out.println(Integer.MAX_VALUE);
+5. }
+6. }
+Which, inserted independently at line 1, compiles? (Choose all that apply.)
+A. import static java.lang;
+B. import static java.lang.Integer;
+C. import static java.lang.Integer.*;
+D. static import java.lang.Integer.*;
+E. import static java.lang.Integer.MAX_VALUE;
+F. None of the above statements are valid import
