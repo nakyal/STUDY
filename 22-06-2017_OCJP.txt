@@ -1,0 +1,331 @@
+identifiers:
+
+
+1. starts with alphabet, we can use special characters like $, _ 
+
+   firstNumber
+
+  class Outer {
+  
+     class Inner {
+  }
+}
+
+Outer$Inner
+
+
+int firstNumber = 123;
+
+long creditCardNumber = 1234_5678_9012;
+
+_123 not a valid literal
+
+
+12345_ not valid literal
+
+
+long cardNumber = 12345l;
+
+float price = 12.4F;
+
+double salary = 23000.75;
+
+System.out.println(23 + 45 + 5L); 73
+
+
+
+Telephone:
+  talk
+
+Cordless:
+  talk
+  walk
+
+mobile phone
+  talk
+  walk
+  sms
+
+Smartphones
+ talk
+ walk
+ sms
+ browse
+ multimedia
+ video calling
+ etc...
+
+
+Inheritance:
+
+
+
+
+IS-A using Inheritance and Interfaces
+
+
+car is a vehicle
+bike is a vehicle
+
+student is a person
+
+employee is also a person
+
+
+class Person {
+   String
+}
+
+class Employee {
+}
+
+
+-- code reusability
+-- we can use fields from parent class directly
+-- I can define method with same name and same signature as the one in the super class
+
+
+
+super call(super()): 
+
+-- used to call or invoke parent class parameterized constructor
+-- super call always must be the first statement inside a child constructor
+
+
+super keyword:
+
+-- used to invoke parent class overriden method
+-- we must use super keyword only from non-static(instance) methods not from static context
+
+Method Overriding Rules:
+-- signature should be same
+-- method name should be same
+-- return type also must be same
+-- parameters must be same(type and number of parameters)
+
+Covariant return type:
+
+-- child class overrides parent method with return type of same class and parent overriden method return is parent class itself is called covariant
+   types.
+
+
+
+types: single, multiple
+
+Multiple:
+
+java doesn't support multiple inheritance
+
+
+Father
+x = 23;
+
+Mother 
+x = 35;
+
+Child extends Father, Mother
+x?
+
+
+single level:
+
+class A {
+}
+
+class B extends A {
+}
+
+class C extends B {
+}
+
+
+
+Object:
+
+-- is a class from java.lang
+-- Methods:
+   equals()
+   hashCode()
+   toString()
+   clone()
+   wait()
+   notify()
+   notifyAll()
+
+
+Encapsulation:
+
+
+1. public static boolean digitsOnly(String s) {
+2. String reference = "0123456789";
+3. for (int i = 0; i < s.length( ); i++) {
+4. ...
+5. return false;
+6. }
+7. }
+8. return true;
+9. }
+
+A. if ('1' < 48 || s.charAt(i) > 57) {
+B. if (!reference.contains(s.charAt(i))) {
+C. if (!reference.contains("" + s.charAt(i))) {
+D. if (s.charAt(i) <= 48 || s.charAt(i) >= 57) { 
+
+
+
+\u0000 or 0
+
+i = 0; s.charAt(0) = '0';
+
+i = 1; s.charAt(1) = '1';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

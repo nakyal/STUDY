@@ -1,0 +1,289 @@
+21-06-2017
+
+
+
+
+
+import statements:
+
+before static import:
+
+system.out.println(Math.round(2.5));
+
+after static import:
+
+import static java.lang.Math.*;
+system.out.println(round(2.5));
+
+
+
+
+
+types of variables:
+
+
+class and object
+
+A a  = new A();
+
+
+String:
+
+byte
+short
+int
+long
+float
+double
+char
+boolean
+
+
+String
+
+1. String name = "nagaraju";
+
+2. String name = new String("nagaraju");
+
+A a1 = new A();
+
+Heap:
+
+
+String Constant Pool:(SCP)
+
+
+String s1 = "hello";
+String s2 = new String("hello");
+String s3 = "hello";
+String s4 = new String("hello");
+
+1:
+
+if (s2.equals(s4)) {
+System.out.println("true");
+} else {
+System.out.println("false");
+}
+
+
+2:
+if (s1==s3) {
+System.out.println("true");
+} else {
+System.out.println("false");
+}
+
+
+1: true
+
+2: true
+
+String objects are immutable objects:
+
+
+String s1 = "Had";
+String s2 = "had";
+
+s1 = s1.concat(s2);
+
+syso(s1); //hyderabad
+
+equals() : boolean
+
+
+compareTo(): int - +ve, 0 and -ve
+s1.compareTo(s2) ==> +ve value
+
+
+length(): int - s1.length() --> 3
+
+charAt(): char - s1.charAt(0);  --> H
+
+trim(): " hello world  ".trim(); --> "Hello world";
+
+split():
+
+String msg = "hai, this is ocjp session";
+
+String m[] = msg.split(",");
+
+
+indexOf(): int
+
+lastIndexOf();
+
+
+String msg = "hai, this is ocjp session";
+
+substring(int index): msg.substring(2); //i, this is ocjp session
+
+substring(int start, int end):
+
+msg.substring(0, 3); // hai
+
+
+String name = "cg";
+
+StringBuilder sb1 = new StringBuilder(name);
+
+
+StringBuilder sb2 = new StringBuilder("cg");
+
+StringBuffer sb3 = new StringBuffer(name);
+
+String s1 = sb3; // error
+
+String s1 = sb3.toString(); // converting StringBuffer to String
+
+Consider the following class:
+
+public class IdentifyMyParts {
+    public static int x = 7; 
+    public int y = 3; 
+}
+
+
+what are the class variables?:
+
+What are the instance variables?
+y
+
+What is the output from the following code:
+
+IdentifyMyParts a = new IdentifyMyParts();
+IdentifyMyParts b = new IdentifyMyParts();
+a.y = 5;
+b.y = 6;
+a.x = 1;
+b.x = 2;
+System.out.println("a.y = " + a.y);				//5
+System.out.println("b.y = " + b.y);				//6
+System.out.println("a.x = " + a.x);				//1
+System.out.println("b.x = " + b.x);
+System.out.println("IdentifyMyParts.x = " + IdentifyMyParts.x);	//2
+
+
+
+
+
+
+Consider the following code snippet.
+arrayOfInts[j] > arrayOfInts[j+1]
+Which operators does the code contain?
+
+
+relational operator
+
+arithmetic operator
+
+
+
+Consider the following code snippet.
+int i = 10;
+int n = i++%5;
+
+What are the values of i and n after the code is executed?
+
+i = 11, n = 0;
+
+
+what are the final values of i and n if instead of using the postfix increment operator (i++), you use the prefix version (++i))?
+
+11 and 1
+
+To invert the value of a boolean, which operator would you use?
+
+
+
+Which operator is used to compare two values, = or == ?: ==
+
+
+
+
+Explain the following code sample: result = someCondition ? value1 : value2;
+
+
+
+
+
+
+The most basic control flow statement supported by the Java programming language is the ___ statement.
+The ___ statement allows for any number of possible execution paths.
+The ___ statement is similar to the while statement, but evaluates its expression at the ___ of the loop.
+How do you write an infinite loop using the for statement?
+
+for (;;)
+How do you write an infinite loop using the while statement?
+Exercises
+
+Consider the following code snippet.
+
+if (aNumber >= 0)
+    if (aNumber == 0)
+        System.out.println("first string");
+else System.out.println("second string");
+System.out.println("third string");
+What output do you think the code will produce if aNumber is 3?
+
+
+
+String hannah = "Did Hannah see bees? Hannah did.";
+
+
+What is the value displayed by the expression hannah.length()? 32
+
+What is the value returned by the method call hannah.charAt(12)? e
+
+Write an expression that refers to the letter b in the string referred to by hannah.
+
+How long is the string returned by the following expression? What is the string?
+
+"Was it a car or a cat I saw?".substring(9, 12)
+
+
+In the following program, called ComputeResult, what is the value of result after each numbered line executes?
+
+public class ComputeResult {
+    public static void main(String[] args) {
+        String original = "software";
+        StringBuilder result = new StringBuilder("hi");
+        int index = original.indexOf('a');
+
+/*1*/   result.setCharAt(0, original.charAt(0));  // si
+
+/*2*/   result.setCharAt(1, original.charAt(original.length()-1)); se
+
+/*3*/   result.insert(1, original.charAt(4)); swe
+/*4*/   result.append(original.substring(1,4));sweoft
+/*5*/   result.insert(3, (original.substring(index, index+2) + " ")); swearoft
+
+        System.out.println(result); swearoft
+    }
+}
+
+
+
+
+
+Write a program that computes your initials from your full name and displays them.
+
+
+Today Topics:
+
+Variables types and scope of varialbe
+
+String class and StringBuffer, StringBuilder
+
+scp and heap
+
+static import statements
+
+
+
+
+
+
+
+
+
