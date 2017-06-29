@@ -1,0 +1,445 @@
+Hi All,
+ 
+Please solve below objectives.
+ 
+1. Given:
+class Plane {
+static String s = "-";
+public static void main(String[] args) {
+new Plane().s1();
+System.out.println(s);
+}
+void s1() {
+try { s2(); }
+catch (Exception e) { s += "c"; }
+}
+void s2() throws Exception {
+s3(); s += "2";
+s3(); s += "2b";
+}
+void s3() throws Exception {
+throw new Exception();
+}
+}
+What is the result?
+A. -
+B. -c
+C. -c2
+D. -2c
+E. -c22b
+F. -2c2b
+G. -2c2bc
+H. Compilation fails
+===========================================================
+ 
+2.Given:
+try { int x = Integer.parseInt("two"); }
+Which could be used to create an appropriate catch block? (Choose all that apply.)
+A. ClassCastException
+B. IllegalStateException
+C. NumberFormatException
+D. IllegalArgumentException
+E. ExceptionInInitializerError
+F. ArrayIndexOutOfBoundsException
+=======================================================
+ 
+3. Given:
+class Emu {
+static String s = "-";
+public static void main(String[] args) {
+try {
+throw new Exception();
+} catch (Exception e) {
+try {
+try { throw new Exception();
+} catch (Exception ex) { s += "ic "; }
+throw new Exception(); }
+catch (Exception x) { s += "mc "; }
+finally { s += "mf "; }
+} finally { s += "of "; }
+System.out.println(s);
+} }
+What is the result?
+A. -ic of
+B. -mf of
+C. -mc mf
+D. -ic mf of
+E. -ic mc mf of
+F. -ic mc of mf
+G. Compilation fails
+===============================================
+ 
+4. Given:
+3. class SubException extends Exception { }
+4. class SubSubException extends SubException { }
+5.
+6. public class CC { void doStuff() throws SubException { } }
+7.
+8. class CC2 extends CC { void doStuff() throws SubSubException { } }
+9.
+10. class CC3 extends CC { void doStuff() throws Exception { } }
+11.
+12. class CC4 extends CC { void doStuff(int x) throws Exception { } }
+13.
+14. class CC5 extends CC { void doStuff() { } }
+What is the result? (Choose all that apply.)
+A. Compilation succeeds
+B. Compilation fails due to an error on line 8
+C. Compilation fails due to an error on line 10
+D. Compilation fails due to an error on line 12
+E. Compilation fails due to an error on line 14
+==============================================================
+ 
+5. Given:
+3. public class Ebb {
+4. static int x = 7;
+5. public static void main(String[] args) {
+6. String s = "";
+7. for(int y = 0; y < 3; y++) {
+8. x++;
+9. switch(x) {
+10. case 8: s += "8 ";
+11. case 9: s += "9 ";
+12. case 10: { s+= "10 "; break; }
+13. default: s += "d ";
+14. case 13: s+= "13 ";
+15. }
+16. }
+17. System.out.println(s);
+18. }
+19. static { x++; }
+20. }
+What is the result?
+A. 9 10 d
+B. 8 9 10 d
+C. 9 10 10 d
+D. 9 10 10 d 13
+E. 8 9 10 10 d 13
+F. 8 9 10 9 10 10 d 13
+G. Compilation fails
+==============================================
+ 
+6. Given:
+3. class Infinity { }
+4. public class Beyond extends Infinity {
+5. static Integer i;
+6. public static void main(String[] args) {
+7. int sw = (int)(Math.random() * 3);
+8. switch(sw) {
+9. case 0: { for(int x = 10; x > 5; x++)
+10. if(x > 10000000) x = 10;
+11. break; }
+12. case 1: { int y = 7 * i; break; }
+13. case 2: { Infinity inf = new Beyond();
+14. Beyond b = (Beyond)inf; }
+15. }
+16. }
+17. }
+And given that line 7 will assign the value 0, 1, or 2 to sw, which are true?
+(Choose all that apply.)
+A. Compilation fails
+B. A ClassCastException might be thrown
+C. A StackOverflowError might be thrown
+D. A NullPointerException might be thrown
+E. An IllegalStateException might be thrown
+F. The program might hang without ever completing
+G. The program will always complete without exception
+=========================================================================
+ 
+7. Given:
+3. public class OverAndOver {
+4. static String s = "";
+5. public static void main(String[] args) {
+6. try {
+7. s += "1";
+8. throw new Exception();
+9. } catch (Exception e) { s += "2";
+10. } finally { s += "3"; doStuff(); s += "4";
+11. }
+12. System.out.println(s);
+13. }
+14. static void doStuff() { int x = 0; int y = 7/x; }
+15. }
+What is the result?
+A. 12
+B. 13
+C. 123
+D. 1234
+E. Compilation fails
+F. 123 followed by an exception
+G. 1234 followed by an exception
+H. An exception is thrown with no other output
+========================================================
+ 
+8. Given:
+3. public class Gotcha {
+4. public static void main(String[] args) {
+5. // insert code here
+6.
+7. }
+8. void go() {
+9. go();
+10. }
+11. }
+And given the following three code fragments:
+I. new Gotcha().go();
+II. try { new Gotcha().go(); }
+catch (Error e) { System.out.println("ouch"); }
+III. try { new Gotcha().go(); }
+catch (Exception e) { System.out.println("ouch"); }
+When fragments I–III are added, independently, at line 5, which are true?
+(Choose all that apply.)
+A. Some will not compile
+B. They will all compile
+C. All will complete normally
+D. None will complete normally
+E. Only one will complete normally
+F. Two of them will complete normally
+============================================================
+ 
+9. Given:
+1. public class Frisbee {
+2. // insert code here
+3. int x = 0;
+4. System.out.println(7/x);
+5. }
+6. }
+And given the following four code fragments:
+I. public static void main(String[] args) {
+II. public static void main(String[] args) throws Exception {
+III. public static void main(String[] args) throws IOException {
+IV. public static void main(String[] args) throws RuntimeException {
+If the four fragments are inserted independently at line 2, which are true? (Choose all that apply.)
+A. All four will compile and execute without exception
+B. All four will compile and execute and throw an exception
+C. Some, but not all, will compile and execute without exception
+D. Some, but not all, will compile and execute and throw an exception
+E. When considering fragments II, III, and IV, of those that will compile, adding a try/catch
+   block around line 4 will cause compilation to fail
+=========================================================================
+ 
+10. Given:
+2. class MyException extends Exception { }
+3. class Tire {
+4. void doStuff() { }
+5. }
+6. public class Retread extends Tire {
+7. public static void main(String[] args) {
+8. new Retread().doStuff();
+9. }
+10. // insert code here
+11. System.out.println(7/0);
+12. }
+13. }
+And given the following four code fragments:
+I. void doStuff() {
+II. void doStuff() throws MyException {
+III. void doStuff() throws RuntimeException {
+IV. void doStuff() throws ArithmeticException {
+When fragments I–IV are added, independently, at line 10, which are true? (Choose all that apply.)
+A. None will compile
+B. They will all compile
+C. Some, but not all, will compile
+D. All of those that compile will throw an exception at runtime
+E. None of those that compile will throw an exception at runtime
+F. Only some of those that compile will throw an exception at runtime
+ 
+ 
+From: Setti, Nagaraju 
+Sent: Wednesday, June 28, 2017 2:09 PM
+To: Medapati, Sravan
+Cc: Koutarapu, Manasa; Bachhav, Monali; Gadwe, Kshitij; Pawar, Kalyani; Devikar, Swateja; Jawanjalkar, Mayuri; Mahajan, Bhushan; Vadapalli, Haseena; Jadhav, Ajay; Bhalerao, Aishwarya; Sandbhor, Devdas; Mankar, Nikita; Vana, Madhuri; Inamdar, Chinmay; Ganga, Shravani; Jadhav, Akshay; Chavan, Nikita; Gadhave, Supriya; Kadam, Supriya; Dcruz, Jennifer; Authukuri, Suneetha; Vinjamuri, Harish; Namratha, Addanki; Royal, Kunisetty; Pandluri, Madhavi; Jayasree, Rapuri; Arya, Dayanand; Varshitha, Gangammavari; Chaudhry, Maryam; Kumar, Praveen; Joseph, Xavier; Singh, Ashish Kumar; Sowmya, Maddela; Garg, Ankita; Mandal, Jay; Reddy, Thanooja; Kapri, Deepti; Jagadeeshkumar, Mukthapuram; Subhakara Rao, Surya; Faizan, Mohamed; Katakam, Vineeth; Kyal, Namita; Kanwate, Yogesh; Kalyani, Thiriveedi; Taj Begam, Shaik; Sayed, Ali; Tripathi, Shubham; Yadav, Sandeep; Verma, Shalini; Dwivedi, Hemal; Subramanyam, Upadhya; Shukla, Vinod; Vidya, Krishnammagari; Kune, Gunasekhar; Subramanian, Hema; Reddy, Katte; Jain, Ritu; Sheth, Dev; Govindu, Swathi; Sadik, Sheik; Sharma, Ojasvita; Asati, Himanshu; Sur, Ashis; Neelgar, Madan; Parchuri, Tirumala; Roy Ghosh, Paromita; Hosagoudar, Sumitra
+Subject: RE: OCJP Certification.
+ 
+Hi All,
+ 
+Please solve below objectives.
+ 
+1. Given:
+class Hexy {
+public static void main(String[] args) {
+int i = 42;
+String s = (i<40)?"life":(i>50)?"universe":"everything";
+System.out.println(s);
+}
+}
+What is the result?
+A. null
+B. life
+C. universe
+D. everything
+E. Compilation fails
+F. An exception is thrown at runtime
+===========================================================================
+ 
+2. Given:
+public class Dog {
+String name;
+Dog(String s) { name = s; }
+public static void main(String[] args) {
+Dog d1 = new Dog("Boi");
+Dog d2 = new Dog("Tyri");
+System.out.print((d1 == d2) + " ");
+Dog d3 = new Dog("Boi");
+d2 = d1;
+System.out.print((d1 == d2) + " ");
+System.out.print((d1 == d3) + " ");
+}
+}
+What is the result?
+A. true true true
+B. true true false
+C. false true false
+D. false true true
+E. false false false
+F. An exception will be thrown at runtime
+=====================================================================================
+ 
+3. Given:
+class Fork {
+public static void main(String[] args) {
+if(args.length == 1 | args[1].equals("test")) {
+System.out.println("test case");
+} else {
+System.out.println("production " + args[0]);
+}
+}
+}
+And the command-line invocation:
+java Fork live2
+What is the result?
+A. test case
+B. production live2
+C. test case live2
+D. Compilation fails
+E. An exception is thrown at runtime
+==================================================================
+ 
+4. Given:
+class Feline {
+public static void main(String[] args) {
+long x = 42L;
+long y = 44L;
+System.out.print(" " + 7 + 2 + " ");
+System.out.print(foo() + x + 5 + " ");
+System.out.println(x + y + foo());
+}
+static String foo() { return "foo"; }
+}
+What is the result?
+A. 9 foo47 86foo
+B. 9 foo47 4244foo
+C. 9 foo425 86foo
+D. 9 foo425 4244foo
+E. 72 foo47 86foo
+F. 72 foo47 4244foo
+G. 72 foo425 86foo
+H. 72 foo425 4244foo
+I. Compilation fails
+=====================================================================
+ 
+5. Given:
+public class Cowboys {
+public static void main(String[] args) {
+int x = 12;
+int a = 5;
+int b = 7;
+System.out.println(x/a + " " + x/b);
+}
+}
+What is the result? (Choose all that apply.)
+A. 2 1
+B. 2 2
+C. 3 1
+D. 3 2
+E. An exception is thrown at runtime
+================================================================
+ 
+6. (OCP Only) Given:
+ 
+3. public class McGee {
+4. public static void main(String[] args) {
+5. Days d1 = Days.TH;
+6. Days d2 = Days.M;
+7. for(Days d: Days.values()) {
+8. if(d.equals(Days.F)) break;
+9. d2 = d;
+10. }
+11. System.out.println((d1 == d2)?"same old" : "newly new");
+12. }
+13. enum Days {M, T, W, TH, F, SA, SU};
+14. }
+What is the result?
+A. same old
+B. newly new
+C. Compilation fails due to multiple errors
+D. Compilation fails due only to an error on line 7
+E. Compilation fails due only to an error on line 8
+F. Compilation fails due only to an error on line 11
+G. Compilation fails due only to an error on line 13
+=======================================================================
+ 
+7. Given:
+4. public class SpecialOps {
+5. public static void main(String[] args) {
+6. String s = "";
+7. boolean b1 = true;
+8. boolean b2 = false;
+9. if((b2 = false) | (21%5) > 2) s += "x";
+10. if(b1 || (b2 == true)) s += "y";
+11. if(b2 == true) s += "z";
+12. System.out.println(s);
+13. }
+14. }
+Which are true? (Choose all that apply.)
+A. Compilation fails
+B. x will be included in the output
+C. y will be included in the output
+D. z will be included in the output
+E. An exception is thrown at runtime
+=============================================================
+ 
+8. Given:
+3. public class Spock {
+4. public static void main(String[] args) {
+5. int mask = 0;
+6. int count = 0;
+7. if( ((5<7) || (++count < 10)) | mask++ < 10 ) mask = mask + 1;
+8. if( (6 > 8) ^ false) mask = mask + 10;
+9. if( !(mask > 1) && ++count > 1) mask = mask + 100;
+10. System.out.println(mask + " " + count);
+11. }
+12. }
+Which two are true about the value of mask and the value of count at line 10? (Choose two.)
+A. mask is 0
+B. mask is 1
+C. mask is 2
+D. mask is 10
+E. mask is greater than 10
+F. count is 0
+G. count is greater than 0
+===============================================================================
+ 
+9. Given:
+3. interface Vessel { }
+4. interface Toy { }
+5. class Boat implements Vessel { }
+6. class Speedboat extends Boat implements Toy { }
+7. public class Tree {
+8. public static void main(String[] args) {
+9. String s = "0";
+10. Boat b = new Boat();
+11. Boat b2 = new Speedboat();
+12. Speedboat s2 = new Speedboat();
+13. if((b instanceof Vessel) && (b2 instanceof Toy)) s += "1";
+14. if((s2 instanceof Vessel) && (s2 instanceof Toy)) s += "2";
+15. System.out.println(s);
+16. }
+17. }
+What is the result?
+A. 0
+B. 01
+C. 02
+D. 012
+E. Compilation fails
+F. An exception is thrown at runtime
