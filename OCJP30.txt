@@ -1,0 +1,1522 @@
+lease solve.
+ 
+1.
+ 
+Given the following code fragment:
+  public class A{
+    static class B extends A{
+      public void capture(){  System.out.print("Cap:A.B");  }
+    }
+    static class C extends B{
+      public void capture(){  System.out.print("Cap:A.C");  }
+    }
+    public void capture(){ System.out.print("Cap:A"); }
+ 
+    public static void main(String args[]){
+      A ob=new C();
+      ob.capture();
+    }
+  }
+What will be the result of the given  program?
+(Choose one)
+A. Prints "Cap:A"
+B. Prints "Cap:A.B"
+C. Prints "Cap:A.C"
+D. Prints "null"
+E. Prints nothing.
+F. Compile time error.
+ 
+ 
+ 
+2.
+ 
+ 
+  import java.util.*;
+ 
+  public class A{
+    public int a=0;
+    A(int a){
+      this.a=a;
+    }
+    public String toString(){
+      return "["+a+"]";
+    }
+    public static void main(String args[]){
+      A[] a=new A[]{new A(2),new A(1),new A(6)};
+      Arrays.sort(a);
+      for(A s:a) System.out.print(s);
+    }
+  }
+ 
+What will be the result of the given  program?
+A. Compilation fails.
+B. Runtime exception.
+C. Prints nothing.
+D. Prints "[2][1][6]"
+E. Prints "[1][2][6]"
+F. Prints "[6][2][1]"
+G. Prints "[1][1][1]"
+H. Prints "[6][6][6]"
+I. Prints "[0][0][0]"
+ 
+ 
+ 
+                                                         
+3.
+ 
+Which of the following statements are FALSE? (Choose two)
+A. The method Collections.reverse returns a Comparator.
+B. The method Collections.reverseOrder returns a Comparator.
+C. The method Collections.reverse is a static method.
+D. The method Collections.reverseOrder is a static method.
+E. The method Arrays.asList is a static method.
+F. The method Arrays.toArray is a static method.
+ 
+ 
+4.
+ 
+Given the following code fragment:
+  boolean b1=true;
+  Boolean b2=new Boolean("TrUe");
+  while(b1){
+    System.out.print(b2);
+    for(int i=0; i<5; System.out.print(i))
+      i++;
+    if(!b2){
+      b1=true;
+    }else{
+      b1=new Boolean("false");
+    }
+  }
+What will be the result of attempting to compile and run the given code fragment?
+A. Prints "false12345"
+B. Prints "true12345"
+C. Prints "false1234512345"
+D. Prints "true1234512345"
+E. Prints "false"
+F. Prints "true"
+G. Prints a nonstop sequence.
+H. Prints nothing.
+I. Compile time error.
+ 
+ 
+5.
+ 
+ 
+public class Gened{
+ 
+  public static void main(String argv[]){
+    doNumber(2);
+    doNumber(2L);
+    doNumber(new int[]{1,2,3,4});
+    doNumber(new Integer(2));
+    doNumber(new Integer[2]);
+  }
+ 
+  public static void doNumber(int dn){
+    System.out.print("a");
+  }
+ 
+  public static void doNumber(int... dn){
+    System.out.print("b");
+  }
+ 
+  public static void doNumber(Integer dn){
+    System.out.print("c");
+  }
+ 
+ public static void doNumber(Integer... dn){
+    System.out.print("d");
+  }
+ 
+  public static void doNumber(Object dn){
+    System.out.print("e");
+  }
+ 
+}
+ 
+What will be the result of attempting to compile and run this given program?
+A. Prints "aebcd"
+B. Prints "aedcd"
+C. Prints "acded"
+D. Prints "abacc"
+E. Compile time error.
+ 
+                                                         
+6.
+ 
+public class Greek{
+ 
+  int i=1;
+ 
+  public int getI(){
+    System.out.print("Super");
+    return i;
+  }
+ 
+  public static void main(String arhs[]){
+    Greek ga=new Arabik();
+    System.out.print(ga.i+" "+ga.getI());
+  }
+}
+ 
+ 
+class Arabik extends Greek{
+ 
+  int i=2;
+ 
+  public int getI(){
+    System.out.print("Sub");
+    return i;
+  }
+ 
+}
+ 
+What will be the result of attempting to compile and run this given program?
+A. Prints "1 Super1"
+B. Prints "1 Sub1"
+C. Prints "1 Sub2"
+D. Prints "2 Sub1"
+E. Prints "2 Sub2"
+F. Prints "Sub1 1"
+G. Prints "Sub1 2"
+H. Prints "Sub2 1"
+I. Compile time error.
+ 
+7.
+ 
+Which of the following are checked exceptions? (Choose three)
+A. IllegalThreadStateException
+B. IllegalMonitorStateException
+C. ParseException
+D. NumberFormatException
+E. IOException
+F. RuntimeException
+G. ClassNotFoundException
+                                                        
+8.
+ 
+Given the following code fragment:
+    public class Stgs{
+    public static void main(String args[]){
+      String[] st=new String[]{"Java","Language"};
+      StringBuilder sb=new StringBuilder(st[1]);
+      sb.concat(st[2]);
+      System.out.println(sb);
+    }
+  }
+What will be the result of attempting to compile and run this given program? (Choose one).
+A. Prints "JavaLanguage"
+B. Prints "Java"
+C. Prints "Language"
+D. Prints "Languagenull"
+E. Prints "null"
+F. Run time exception.
+G. Compile time error.
+ 
+9.
+ 
+ 
+Which of the following statements are true? (Choose three).
+A. A final class, cannot be a super class.
+B. A final class, cannot be a sub class.
+C. A final method cannot be overloaded.
+D. A final method cannot be overridden.
+E. The combination "abstract final" is not valid for inner classes.
+F. The combination "abstract static" is not valid for inner classes.
+G. The combination "abstract private" is not valid for inner classes.
+H. The combination "abstract protected" is not valid for inner classes.
+I. The combination "abstract strictfp" is not valid for inner classes.
+ 
+ 
+10.
+ 
+ 
+private static String getNumber(int x){
+  try{
+    return "" + (x-2);
+  }finally{
+    return "" + (x+2);
+  }
+}
+             
+public static void main(String args[]){
+  System.out.println(getNumber(5) + getNumber(5));
+}
+ 
+ 
+What will be the result of attempting to compile and run the given program?
+A. Prints "33"
+B. Prints "77"
+C. Prints "37"
+D. Prints "73"
+E. Prints "3737"
+F. Prints "7373"
+G. Compile time error.
+H. Exception at runtime.
+ 
+ 
+ 
+ 
+11.
+ 
+class Deck implements PrinterListener{
+ 
+  public static void main(String args[]) throws Exception {
+    Deck d = new Deck();
+    d.work();
+  }
+   
+  private void work(){
+    PrinterListener deck1 = this;
+    PrinterListener deck2 = new PrinterListener() {
+     public void print() {
+      System.out.print("a");
+      deck1.print();
+      System.out.print("b");
+     }
+    };
+    deck1.print();
+    deck2.print();
+  }
+   
+  public void print(){
+    System.out.print("c");
+  }
+}
+ 
+interface PrinterListener{
+  void print();
+}
+ 
+ 
+What will be the result of attempting to compile and run the given program?
+A. Compilation fails.
+B. An exception happens at runtime.
+C. Prints "abc"
+D. Prints "cab"
+E. Prints "acb"
+F. Prints "cacb"
+G. Prints "acbcacb"
+ 
+ 
+                                                         
+12.
+ 
+    1.  interface Min{}
+    2.
+    3.  class A{}
+    4.
+    5.  class B extends A implements Min{}
+    6.
+    7.  class C extends B{}
+    8.
+    9.  public class CCExp{
+  10.   public static void main(String args[]){
+  11.     A a=new A();
+  12.     B b=new B();
+  13.     C c=new C();
+  14.     Min m=null;
+  15.     b=(C)m;
+  16.     m=(Min)b;
+  17.     A a2=(A)m;
+  18.     B b2=(B)a2;
+  19.     Min m2=(C)b2;
+  20.     C c2=(C)m2;
+  21.   }
+  22. }
+ 
+ 
+Which line throws an exception at? (Choose the first line that gives the exception).
+A. Line-14
+B. Line-15
+C. Line-16
+D. Line-17
+E. Line-18
+F. Line-19
+G. Line-20
+H. Never thrown any exception.
+ 
+13.
+ 
+  6.
+  7.  for(int i=0; i<4; System.out.print(i)){
+  8.    i++;
+  9.    while(true){
+  10.     i++;
+  11.     if(i<2) continue;
+  12.     else break;
+  13.   }
+  14.   i++;
+  15.   if(i>2) continue;
+  16.   else break;
+  17. }
+  18.
+ 
+ 
+Given the following code fragment. What will be the result of attempting to compile and run this code fragment?
+A. Compilation fails.
+B. Prints "3"
+C. Prints "34"
+D. Prints "36"
+E. Prints "346"
+F. Prints "2"
+G. Prints "23"
+H. Prints "25"
+I. Prints "235"
+ 
+ 
+                                                         
+ 
+                                                         
+14.
+ 
+Which one is NOT a java operator? (Choose one)
+A. ==
+B. !=
+C. |
+D. &&
+E. <<
+F. >>
+G. <<<
+H. >>>
+I. ~
+ 
+ 
+ 
+15.
+ 
+  StringBuffer sb=new StringBuffer("Sun");
+  sb.insert(1,"ExamLab").append("SCJP").delete(1,3).reverse();
+  System.out.println(sb);
+Given the following code fragment. What will be the result of attempting to compile and run this code fragment?
+A. Prints "PJCSnuSbaLma"
+B. Prints "PJCSnuSbaLm"
+C. Prints "PJCSnuSbaL"
+D. Prints "mLabSunSCJP"
+E. Prints "amLabSunSCJP"
+F. Prints "PJCSnubaLmaS"
+G. Prints "PJCSnubaLmS"
+H. Prints "PJCSnubaLm"
+I. Compile time error.
+ 
+ 
+16.
+ 
+  3.  public static void main(String... argv){
+  4.    rest(4,5,new int[]{1,2,3});
+  5.    rest(new int[]{1,2,3},4,5);
+  6.  }
+  7. 
+  8.  public static void rest(int... i){
+  9.    System.out.print("a");
+  10. }
+  11.
+  12. public static void rest(Integer... I){
+  13.   System.out.print("b");
+  14. }
+ 
+ 
+What will be the result of attempting to compile and execute the given code fragment?
+A. Compilation fails.
+B. Prints "aa"
+C. Prints "ab"
+D. Prints "ba"
+E. Prints "bb"
+F. Runtime exception is thrown.
+ 
+                                                         
+17.
+ 
+Given the following code fragment:
+   System.out.printf("%02.2f%s%b",new Double(7),new StringBuffer("set"),"fAlSE");
+What will be the result of attempting to compile and run the  statement given above?
+A. Prints "7settrue"
+B. Prints "7setfalse"
+C. Prints "7.00settrue"
+D. Prints "7.00setfalse"
+E. Prints "07.00settrue"
+F. Prints "07.00setfalse"
+G. Run time exception.
+ 
+ 
+18.
+ 
+  12.
+  13. int i=1;
+  14. if(++i>1 || ++i<1);
+  15. if(i-->Integer.MIN_VALUE || i--< Integer.MAX_VALUE);
+  16. if(i++<Integer.MAX_VALUE || i++> Integer.MIN_VALUE);
+  17. System.out.printf("i=%+d",i);
+  18.
+ 
+ 
+What will be the result of attempting to compile and execute the given code fragment?
+A. Prints "i=(1)"
+B. Prints "i=(0)"
+C. Prints "i=0"
+D. Prints "i=+0"
+E. Prints "i=+1"
+F. Prints "i=+2"
+G. Prints "i=+3"
+H. Prints "i=+4"
+I. Compilation fails.
+ 
+ 
+                                                         
+19.
+ 
+  public class Asemble{
+    public static void main(String args[]){
+      try{go1();}catch(Exception e){}
+      finally{
+        System.out.println("B");
+      }
+    }
+    public static void go1()throws ArrayIndexOutOfBoundsException{go2();}
+    public static void go2()throws ArithmeticException{go3();}
+    public static void go3()throws InterruptedException{go4();}
+    public static void go4()throws NullPointerException{
+     System.out.println("A");
+      throw new ArrayIndexOutOfBoundsException();
+    }
+  }
+ 
+ 
+What will be the result of attempting to compile and run this program?
+A. Compilation fails.
+B. Prints "AB".
+C. Prints "A".
+D. Prints "B".
+E. Prints "BA".
+F. Prints nothing
+G. The stack trace of an exception will be printed.
+ 
+                                                         
+20.
+ 
+Which of the following sets contain only Java reserved words?
+A. public static void main abstract
+B. class extends key protected final
+C. do volatile final const goto
+D. transient out for interface private
+E. continue switch println synchronized native
+F. strictfp native dim class synchronized
+ 
+ 
+21.
+ 
+  public class A{
+    public static void printIT(){
+      System.out.print("GIT");
+    }
+    public static void main(String argv[]){
+      A a=new A(){
+        public static void printIT(){
+          System.out.print("ICT");
+        }
+      };
+      a.printIT();
+    }
+  }
+ 
+ 
+What will be the result of attempting to compile and run the given program?
+A. Compilation fails.
+B. Prints "GIT".
+C. Prints "ICT".
+D. Prints "GITICT".
+E. Prints "null".
+F. Prints nothing.
+ 
+ 
+                                                         
+22.
+ 
+  class A{
+    public void blast()throws InterruptedException{
+      throw new InterruptedException();
+    }
+  }
+ 
+  class B extends A{
+    public void blast()throws NumberFormatException{
+      throw new NumberFormatException();
+    }
+  }
+ 
+  public class Experr{
+    public static void main(String args[])throws Exception{
+      A ab=new B();
+      ab.blast();
+      System.out.println("Done");
+    }
+  }
+ 
+ 
+What will be the result of attempting to compile and run the given  program?
+A. Prints "Done".
+B. InterruptedException is thrown.
+C. NumberFormatException is thrown.
+D. Compilation fails.
+ 
+                                                         
+23.
+ 
+Which are valid? (Choose two)
+A. import static java.io.*;
+B. import static java.io.BufferedReader;
+C. import static java.io.BufferedReader.*;
+D. import static java.lang.Thread.sleep;
+E. static import java.io.*;
+F. static import java.io.BufferedReader;
+G. static import java.io.BufferedReader.*;
+H. static import java.lang.Thread.sleep;
+ 
+ 
+24.
+ 
+ 
+  String files="txt.dat movie.dat data.dat spread.xls document.doc";
+  // Insert Here
+  for(String ss:s) System.out.println(ss);
+ 
+ 
+The String variable "files" contains a list of file names that are separated by white spaces. Which can be inserted to the commented position, so that it will print a list of file names, line-by-line? In other words, you have to split the given text by white spaces.
+(Choose three)
+A. String[] s=files.split(" ");
+B. String[] s=files.split("\\w");
+C. String[] s=files.split("\\s");
+D. String[] s=files.split("^");
+E. String[] s=files.split("(.)*[\\w]");
+F. String[] s=files.split("(.)*[\\s]");
+G. String[] s=files.split("(.)*");
+H. String[] s=files.split("[(\\w)+]");
+I. String[] s=files.split("[(\\s)+]");
+ 
+                                                         
+25.
+ 
+class A{
+ 
+  A(){
+    super();
+    System.out.print("a");
+  }
+ 
+  A(int i){
+    this();
+    System.out.print("b");
+  }
+ 
+  {
+    System.out.print("c");
+  }
+ 
+}
+ 
+ 
+class B extends A{
+ 
+  B(){
+    this(89);
+    System.out.print("d");
+  }
+ 
+  B(int p){
+    super(p);
+    System.out.print("e");
+  }
+ 
+  public static void main(String args[]){
+    new B();
+  }
+ 
+}
+ 
+ 
+ 
+What will be the result of this program?
+A. Prints "abced"
+B. Prints "cabed"
+C. Prints "decab"
+D. Prints "aedcc"
+E. Prints "caed"
+F. Prints "caed"
+G. Compile time error.
+H. Exception at runtime.
+ 
+                                                         
+26.
+ 
+  1.  class A{
+  2. 
+  3.    A a1;
+  4.    A a2;
+  5. 
+  6.    public void finalize(){
+  7.      System.out.println("-");
+  8.    }
+  9. 
+  10.   public static void main(String args[]){
+  11.     A s1=new A();
+  12.     s1.a1=new A();
+  13.     s1.a2=s1;
+  14.     s1.a1.a2=new A();
+  15.     s1.a1.a2.a2=new A();
+  16.     s1.a1.a2.a2.a1=s1.a1;
+  17.     s1.a2.a1.a2=null;
+  18.     System.gc();
+  19.   }
+  20.
+  21. }
+ 
+ 
+How many objects are eligible to the garbage collector after line-17 of this program is executed
+A. 0
+B. 1
+C. 2
+D. 3
+E. 4
+F. 5
+G. 6
+H. 7
+ 
+                                                         
+27.
+ 
+ 
+public class NewTracks{
+ 
+  public static void main(String argv[]){
+    trackInfo(Integer.parseInt("4"));
+    trackInfo(Integer.valueOf("4"));
+    trackInfo(new Integer(4).intValue());
+    trackInfo(Character.valueOf('a'));
+    trackInfo(new Character('a').charValue());
+  }
+ 
+  public static void trackInfo(int a){
+    System.out.print("a");
+  }
+ 
+  public static void trackInfo(char a){
+    System.out.print("e");
+  }
+ 
+  public static void trackInfo(Integer a){
+    System.out.print("i");
+  }
+ 
+  public static void trackInfo(Character a){
+    System.out.print("o");
+  }
+ 
+  public static void trackInfo(Object a){
+    System.out.print("u");
+  }
+ 
+}
+ 
+ 
+ 
+What will be the result of attempting to compile and run the given  program?
+A. Prints "aaaee"
+B. Prints "aiaoe"
+C. Prints "aaieo"
+D. Prints "iaaoo"
+E. Prints "iiaeo"
+F. Prints "iaioo"
+G. Prints "iiuou"
+H. Prints "aaueu"
+I. Compile time error.
+                                                         
+28.
+ 
+  public class ExamLabView{
+    public static void main(String args[]){
+      String a="a";
+      Object b=new StringBuilder("b");
+      Object c=new StringBuffer("c");
+      Object d=a+b;
+      Object e=c+a;
+      Boolean b1=new Boolean(d instanceof String);
+      Boolean b2=new Boolean(d instanceof StringBuilder);
+      Boolean b3=new Boolean(e instanceof String);
+      Boolean b4=new Boolean(e instanceof StringBuffer);
+      System.out.print(b1+", "+b2+", "+b3+", "+b4);
+    }
+  }
+ 
+ 
+What will be the result of attempting to compile and run the given  program?
+A. Prints "true false true false"
+B. Prints "false true false true"
+C. Prints "true false true true"
+D. Prints "true false false true"
+E. Prints "false true true false"
+F. Prints "false false false false"
+G. Prints "true true true true"
+H. Compile time error.
+I. Runtime exception.
+ 
+ 
+                                                         
+29.
+ 
+Given the following code fragment:
+int a = 1, b=2, c=3;
+int[] d = {0,a,b};
+do{
+  for(int e: d){
+    a += e  + ++b;
+    c -= b;
+  }
+}while(a < c);
+System.out.print(a+","+b+","+c);
+What will be the result of attempting to compile and run the given code fragment?
+A. Prints "16,5,-9"
+B. Prints "21,5,-9"
+C. Prints "13,5,-9"
+D. Prints "17,5,-9"
+E. Program does not terminate
+F. Exception at runtime
+ 
+ 
+30.
+ 
+Given the following code fragment:
+  //Insert Here
+  String[] ss="Certificate on Java2 - J2SE".split(pt);
+  System.out.println(">"+ss[2]+"<");
+Which of the following should be inserted to the commented line of the above code fragment, so that it will print ">Java<" on the screen?
+(Choose one correct answer)
+A. String pt="[\\s\\d]";
+B. String pt="[\\w+][\\s\\d]";
+C. String pt="[\\s\\d][\\s]";
+D. String pt="[\\w][J][\\w*][\\d]";
+E. String pt="[\\w][J]([\\w])+[\\d]";
+F. Existing code gives a compile time error.
+ 
+From: Setti, Nagaraju 
+Sent: Friday, June 30, 2017 2:04 PM
+To: Medapati, Sravan
+Cc: Koutarapu, Manasa; Bachhav, Monali; Gadwe, Kshitij; Pawar, Kalyani; Devikar, Swateja; Jawanjalkar, Mayuri; Mahajan, Bhushan; Vadapalli, Haseena; Jadhav, Ajay; Bhalerao, Aishwarya; Sandbhor, Devdas; Mankar, Nikita; Vana, Madhuri; Inamdar, Chinmay; Ganga, Shravani; Jadhav, Akshay; Chavan, Nikita; Gadhave, Supriya; Kadam, Supriya; Dcruz, Jennifer; Authukuri, Suneetha; Vinjamuri, Harish; Namratha, Addanki; Royal, Kunisetty; Pandluri, Madhavi; Jayasree, Rapuri; Arya, Dayanand; Varshitha, Gangammavari; Chaudhry, Maryam; Kumar, Praveen; Joseph, Xavier; Singh, Ashish Kumar; Sowmya, Maddela; Garg, Ankita; Mandal, Jay; Reddy, Thanooja; Kapri, Deepti; Jagadeeshkumar, Mukthapuram; Subhakara Rao, Surya; Faizan, Mohamed; Katakam, Vineeth; Kyal, Namita; Kanwate, Yogesh; Kalyani, Thiriveedi; Taj Begam, Shaik; Sayed, Ali; Tripathi, Shubham; Yadav, Sandeep; Verma, Shalini; Dwivedi, Hemal; Subramanyam, Upadhya; Shukla, Vinod; Vidya, Krishnammagari; Kune, Gunasekhar; Subramanian, Hema; Reddy, Katte; Jain, Ritu; Sheth, Dev; Govindu, Swathi; Sadik, Sheik; Sharma, Ojasvita; Asati, Himanshu; Sur, Ashis; Neelgar, Madan; Parchuri, Tirumala; Roy Ghosh, Paromita; Hosagoudar, Sumitra
+Subject: RE: OCJP Certification.
+ 
+Hi All,
+ 
+Please solve below objectives.
+ 
+1. Given:
+public abstract interface Frobnicate { public void twiddle(String s); }
+Which is a correct class? (Choose all that apply.)
+A. public abstract class Frob implements Frobnicate {
+public abstract void twiddle(String s) { }
+}
+B. public abstract class Frob implements Frobnicate { }
+C. public class Frob extends Frobnicate {
+public void twiddle(Integer i) { }
+}
+D. public class Frob implements Frobnicate {
+public void twiddle(Integer i) { }
+}
+E. public class Frob implements Frobnicate {
+public void twiddle(String i) { }
+public void twiddle(Integer s) { }
+}
+========================================================
+ 
+2. Given:
+class Top {
+public Top(String s) { System.out.print("B"); }
+}
+public class Bottom2 extends Top {
+public Bottom2(String s) { System.out.print("D"); }
+public static void main(String [] args) {
+new Bottom2("C");
+System.out.println(" ");
+}
+}
+What is the result?
+A. BD
+B. DB
+C. BDC
+D. DBC
+E. Compilation fails
+===========================================
+ 
+3. Given:
+class Clidder {
+private final void flipper() { System.out.println("Clidder"); }
+}
+public class Clidlet extends Clidder {
+public final void flipper() { System.out.println("Clidlet"); }
+public static void main(String [] args) {
+new Clidlet().flipper();
+}
+}
+What is the result?
+A. Clidlet
+B. Clidder
+C. Clidder
+Clidlet
+D. Clidlet
+Clidder
+E. Compilation fails
+================================================================
+ 
+4. Given:
+class Bird {
+{ System.out.print("b1 "); }
+public Bird() { System.out.print("b2 "); }
+}
+class Raptor extends Bird {
+static { System.out.print("r1 "); }
+public Raptor() { System.out.print("r2 "); }
+{ System.out.print("r3 "); }
+static { System.out.print("r4 "); }
+}
+class Hawk extends Raptor {
+public static void main(String[] args) {
+System.out.print("pre ");
+new Hawk();
+System.out.println("hawk ");
+}
+}
+What is the result?
+A. pre b1 b2 r3 r2 hawk
+B. pre b2 b1 r2 r3 hawk
+C. pre b2 b1 r2 r3 hawk r1 r4
+D. r1 r4 pre b1 b2 r3 r2 hawk
+E. r1 r4 pre b2 b1 r2 r3 hawk
+F. pre r1 r4 b1 b2 r3 r2 hawk
+G. pre r1 r4 b2 b1 r2 r3 hawk
+H. The order of output cannot be predicted
+I. Compilation fails
+Note: You'll probably never see this many choices on the real exam!
+======================================================================
+ 
+5. Given the following:
+1. class X { void do1() { } }
+2. class Y extends X { void do2() { } }
+3.
+4. class Chrome {
+5. public static void main(String [] args) {
+6. X x1 = new X();
+7. X x2 = new Y();
+8. Y y1 = new Y();
+9. // insert code here
+10. } }
+Which of the following, inserted at line 9, will compile? (Choose all that apply.)
+A. x2.do2();
+B. (Y)x2.do2();
+C. ((Y)x2).do2();
+D. None of the above statements will compile
+===============================================================
+ 
+6. Given:
+public class Locomotive {
+Locomotive() { main("hi"); }
+public static void main(String[] args) {
+System.out.print("2 ");
+}
+public static void main(String args) {
+System.out.print("3 " + args);
+}
+}
+What is the result? (Choose all that apply.)
+A. 2 will be included in the output
+B. 3 will be included in the output
+C. hi will be included in the output
+D. Compilation fails
+E. An exception is thrown at runtime
+=========================================================
+ 
+7. Given:
+3. class Dog {
+4. public void bark() { System.out.print("woof "); }
+5. }
+6. class Hound extends Dog {
+7. public void sniff() { System.out.print("sniff "); }
+8. public void bark() { System.out.print("howl "); }
+9. }
+10. public class DogShow {
+11. public static void main(String[] args) { new DogShow().go(); }
+12. void go() {
+13. new Hound().bark();
+14. ((Dog) new Hound()).bark();
+15. ((Dog) new Hound()).sniff();
+16. }
+17. }
+What is the result? (Choose all that apply.)
+A. howl howl sniff
+B. howl woof sniff
+C. howl howl followed by an exception
+D. howl woof followed by an exception
+E. Compilation fails with an error at line 14
+F. Compilation fails with an error at line 15
+==============================================================
+ 
+8. Given:
+3. public class Redwood extends Tree {
+4. public static void main(String[] args) {
+5. new Redwood().go();
+6. }
+7. void go() {
+8. go2(new Tree(), new Redwood());
+9. go2((Redwood) new Tree(), new Redwood());
+10. }
+11. void go2(Tree t1, Redwood r1) {
+12. Redwood r2 = (Redwood)t1;
+13. Tree t2 = (Tree)r1;
+14. }
+15. }
+16. class Tree { }
+What is the result? (Choose all that apply.)
+A. An exception is thrown at runtime
+B. The code compiles and runs with no output
+C. Compilation fails with an error at line 8
+D. Compilation fails with an error at line 9
+E. Compilation fails with an error at line 12
+F. Compilation fails with an error at line 13
+====================================================
+ 
+9. Given:
+3. public class Tenor extends Singer {
+4. public static String sing() { return "fa"; }
+5. public static void main(String[] args) {
+6. Tenor t = new Tenor();
+7. Singer s = new Tenor();
+8. System.out.println(t.sing() + " " + s.sing());
+9. }
+10. }
+11. class Singer { public static String sing() { return "la"; } }
+What is the result?
+A. fa fa
+B. fa la
+C. la la
+D. Compilation fails
+E. An exception is thrown at runtime
+=====================================================
+ 
+10. Given:
+3. class Alpha {
+4. static String s = " ";
+5. protected Alpha() { s += "alpha "; }
+6. }
+7. class SubAlpha extends Alpha {
+8. private SubAlpha() { s += "sub "; }
+9. }
+10. public class SubSubAlpha extends Alpha {
+11. private SubSubAlpha() { s += "subsub "; }
+12. public static void main(String[] args) {
+13. new SubSubAlpha();
+14. System.out.println(s);
+15. }
+16. }
+What is the result?
+A. subsub
+B. sub subsub
+C. alpha subsub
+D. alpha sub subsub
+E. Compilation fails
+F. An exception is thrown at runtime
+======================================================
+ 
+11. Given:
+3. class Building {
+4. Building() { System.out.print("b "); }
+5. Building(String name) {
+6. this(); System.out.print("bn " + name);
+7. }
+8. }
+9. public class House extends Building {
+10. House() { System.out.print("h "); }
+11. House(String name) {
+12. this(); System.out.print("hn " + name);
+13. }
+14. public static void main(String[] args) { new House("x "); }
+15. }
+What is the result?
+A. h hn x
+B. hn x h
+C. b h hn x
+D. b hn x h
+E. bn x h hn x
+F. b bn x h hn x
+G. bn x b h hn x
+H. Compilation fails
+========================================================================
+ 
+12. Given:
+3. class Mammal {
+4. String name = "furry ";
+5. String makeNoise() { return "generic noise"; }
+6. }
+7. class Zebra extends Mammal {
+8. String name = "stripes ";
+9. String makeNoise() { return "bray"; }
+10. }
+11. public class ZooKeeper {
+12. public static void main(String[] args) { new ZooKeeper().go(); }
+13. void go() {
+14. Mammal m = new Zebra();
+15. System.out.println(m.name + m.makeNoise());
+16. }
+17. }
+What is the result?
+A. furry bray
+B. stripes bray
+C. furry generic noise
+D. stripes generic noise
+E. Compilation fails
+F. An exception is thrown at runtime
+======================================================================
+ 
+ 
+From: Setti, Nagaraju 
+Sent: Thursday, June 29, 2017 2:05 PM
+To: Medapati, Sravan
+Cc: Koutarapu, Manasa; Bachhav, Monali; Gadwe, Kshitij; Pawar, Kalyani; Devikar, Swateja; Jawanjalkar, Mayuri; Mahajan, Bhushan; Vadapalli, Haseena; Jadhav, Ajay; Bhalerao, Aishwarya; Sandbhor, Devdas; Mankar, Nikita; Vana, Madhuri; Inamdar, Chinmay; Ganga, Shravani; Jadhav, Akshay; Chavan, Nikita; Gadhave, Supriya; Kadam, Supriya; Dcruz, Jennifer; Authukuri, Suneetha; Vinjamuri, Harish; Namratha, Addanki; Royal, Kunisetty; Pandluri, Madhavi; Jayasree, Rapuri; Arya, Dayanand; Varshitha, Gangammavari; Chaudhry, Maryam; Kumar, Praveen; Joseph, Xavier; Singh, Ashish Kumar; Sowmya, Maddela; Garg, Ankita; Mandal, Jay; Reddy, Thanooja; Kapri, Deepti; Jagadeeshkumar, Mukthapuram; Subhakara Rao, Surya; Faizan, Mohamed; Katakam, Vineeth; Kyal, Namita; Kanwate, Yogesh; Kalyani, Thiriveedi; Taj Begam, Shaik; Sayed, Ali; Tripathi, Shubham; Yadav, Sandeep; Verma, Shalini; Dwivedi, Hemal; Subramanyam, Upadhya; Shukla, Vinod; Vidya, Krishnammagari; Kune, Gunasekhar; Subramanian, Hema; Reddy, Katte; Jain, Ritu; Sheth, Dev; Govindu, Swathi; Sadik, Sheik; Sharma, Ojasvita; Asati, Himanshu; Sur, Ashis; Neelgar, Madan; Parchuri, Tirumala; Roy Ghosh, Paromita; Hosagoudar, Sumitra
+Subject: RE: OCJP Certification.
+ 
+Hi All,
+ 
+Please solve below objectives.
+ 
+1. Given:
+class Plane {
+static String s = "-";
+public static void main(String[] args) {
+new Plane().s1();
+System.out.println(s);
+}
+void s1() {
+try { s2(); }
+catch (Exception e) { s += "c"; }
+}
+void s2() throws Exception {
+s3(); s += "2";
+s3(); s += "2b";
+}
+void s3() throws Exception {
+throw new Exception();
+}
+}
+What is the result?
+A. -
+B. -c
+C. -c2
+D. -2c
+E. -c22b
+F. -2c2b
+G. -2c2bc
+H. Compilation fails
+===========================================================
+ 
+2.Given:
+try { int x = Integer.parseInt("two"); }
+Which could be used to create an appropriate catch block? (Choose all that apply.)
+A. ClassCastException
+B. IllegalStateException
+C. NumberFormatException
+D. IllegalArgumentException
+E. ExceptionInInitializerError
+F. ArrayIndexOutOfBoundsException
+=======================================================
+ 
+3. Given:
+class Emu {
+static String s = "-";
+public static void main(String[] args) {
+try {
+throw new Exception();
+} catch (Exception e) {
+try {
+try { throw new Exception();
+} catch (Exception ex) { s += "ic "; }
+throw new Exception(); }
+catch (Exception x) { s += "mc "; }
+finally { s += "mf "; }
+} finally { s += "of "; }
+System.out.println(s);
+} }
+What is the result?
+A. -ic of
+B. -mf of
+C. -mc mf
+D. -ic mf of
+E. -ic mc mf of
+F. -ic mc of mf
+G. Compilation fails
+===============================================
+ 
+4. Given:
+3. class SubException extends Exception { }
+4. class SubSubException extends SubException { }
+5.
+6. public class CC { void doStuff() throws SubException { } }
+7.
+8. class CC2 extends CC { void doStuff() throws SubSubException { } }
+9.
+10. class CC3 extends CC { void doStuff() throws Exception { } }
+11.
+12. class CC4 extends CC { void doStuff(int x) throws Exception { } }
+13.
+14. class CC5 extends CC { void doStuff() { } }
+What is the result? (Choose all that apply.)
+A. Compilation succeeds
+B. Compilation fails due to an error on line 8
+C. Compilation fails due to an error on line 10
+D. Compilation fails due to an error on line 12
+E. Compilation fails due to an error on line 14
+==============================================================
+ 
+5. Given:
+3. public class Ebb {
+4. static int x = 7;
+5. public static void main(String[] args) {
+6. String s = "";
+7. for(int y = 0; y < 3; y++) {
+8. x++;
+9. switch(x) {
+10. case 8: s += "8 ";
+11. case 9: s += "9 ";
+12. case 10: { s+= "10 "; break; }
+13. default: s += "d ";
+14. case 13: s+= "13 ";
+15. }
+16. }
+17. System.out.println(s);
+18. }
+19. static { x++; }
+20. }
+What is the result?
+A. 9 10 d
+B. 8 9 10 d
+C. 9 10 10 d
+D. 9 10 10 d 13
+E. 8 9 10 10 d 13
+F. 8 9 10 9 10 10 d 13
+G. Compilation fails
+==============================================
+ 
+6. Given:
+3. class Infinity { }
+4. public class Beyond extends Infinity {
+5. static Integer i;
+6. public static void main(String[] args) {
+7. int sw = (int)(Math.random() * 3);
+8. switch(sw) {
+9. case 0: { for(int x = 10; x > 5; x++)
+10. if(x > 10000000) x = 10;
+11. break; }
+12. case 1: { int y = 7 * i; break; }
+13. case 2: { Infinity inf = new Beyond();
+14. Beyond b = (Beyond)inf; }
+15. }
+16. }
+17. }
+And given that line 7 will assign the value 0, 1, or 2 to sw, which are true?
+(Choose all that apply.)
+A. Compilation fails
+B. A ClassCastException might be thrown
+C. A StackOverflowError might be thrown
+D. A NullPointerException might be thrown
+E. An IllegalStateException might be thrown
+F. The program might hang without ever completing
+G. The program will always complete without exception
+=========================================================================
+ 
+7. Given:
+3. public class OverAndOver {
+4. static String s = "";
+5. public static void main(String[] args) {
+6. try {
+7. s += "1";
+8. throw new Exception();
+9. } catch (Exception e) { s += "2";
+10. } finally { s += "3"; doStuff(); s += "4";
+11. }
+12. System.out.println(s);
+13. }
+14. static void doStuff() { int x = 0; int y = 7/x; }
+15. }
+What is the result?
+A. 12
+B. 13
+C. 123
+D. 1234
+E. Compilation fails
+F. 123 followed by an exception
+G. 1234 followed by an exception
+H. An exception is thrown with no other output
+========================================================
+ 
+8. Given:
+3. public class Gotcha {
+4. public static void main(String[] args) {
+5. // insert code here
+6.
+7. }
+8. void go() {
+9. go();
+10. }
+11. }
+And given the following three code fragments:
+I. new Gotcha().go();
+II. try { new Gotcha().go(); }
+catch (Error e) { System.out.println("ouch"); }
+III. try { new Gotcha().go(); }
+catch (Exception e) { System.out.println("ouch"); }
+When fragments I–III are added, independently, at line 5, which are true?
+(Choose all that apply.)
+A. Some will not compile
+B. They will all compile
+C. All will complete normally
+D. None will complete normally
+E. Only one will complete normally
+F. Two of them will complete normally
+============================================================
+ 
+9. Given:
+1. public class Frisbee {
+2. // insert code here
+3. int x = 0;
+4. System.out.println(7/x);
+5. }
+6. }
+And given the following four code fragments:
+I. public static void main(String[] args) {
+II. public static void main(String[] args) throws Exception {
+III. public static void main(String[] args) throws IOException {
+IV. public static void main(String[] args) throws RuntimeException {
+If the four fragments are inserted independently at line 2, which are true? (Choose all that apply.)
+A. All four will compile and execute without exception
+B. All four will compile and execute and throw an exception
+C. Some, but not all, will compile and execute without exception
+D. Some, but not all, will compile and execute and throw an exception
+E. When considering fragments II, III, and IV, of those that will compile, adding a try/catch
+   block around line 4 will cause compilation to fail
+=========================================================================
+ 
+10. Given:
+2. class MyException extends Exception { }
+3. class Tire {
+4. void doStuff() { }
+5. }
+6. public class Retread extends Tire {
+7. public static void main(String[] args) {
+8. new Retread().doStuff();
+9. }
+10. // insert code here
+11. System.out.println(7/0);
+12. }
+13. }
+And given the following four code fragments:
+I. void doStuff() {
+II. void doStuff() throws MyException {
+III. void doStuff() throws RuntimeException {
+IV. void doStuff() throws ArithmeticException {
+When fragments I–IV are added, independently, at line 10, which are true? (Choose all that apply.)
+A. None will compile
+B. They will all compile
+C. Some, but not all, will compile
+D. All of those that compile will throw an exception at runtime
+E. None of those that compile will throw an exception at runtime
+F. Only some of those that compile will throw an exception at runtime
+ 
+ 
+
+Please solve below objectives.
+ 
+1. Given:
+class Hexy {
+public static void main(String[] args) {
+int i = 42;
+String s = (i<40)?"life":(i>50)?"universe":"everything";
+System.out.println(s);
+}
+}
+What is the result?
+A. null
+B. life
+C. universe
+D. everything
+E. Compilation fails
+F. An exception is thrown at runtime
+===========================================================================
+ 
+2. Given:
+public class Dog {
+String name;
+Dog(String s) { name = s; }
+public static void main(String[] args) {
+Dog d1 = new Dog("Boi");
+Dog d2 = new Dog("Tyri");
+System.out.print((d1 == d2) + " ");
+Dog d3 = new Dog("Boi");
+d2 = d1;
+System.out.print((d1 == d2) + " ");
+System.out.print((d1 == d3) + " ");
+}
+}
+What is the result?
+A. true true true
+B. true true false
+C. false true false
+D. false true true
+E. false false false
+F. An exception will be thrown at runtime
+=====================================================================================
+ 
+3. Given:
+class Fork {
+public static void main(String[] args) {
+if(args.length == 1 | args[1].equals("test")) {
+System.out.println("test case");
+} else {
+System.out.println("production " + args[0]);
+}
+}
+}
+And the command-line invocation:
+java Fork live2
+What is the result?
+A. test case
+B. production live2
+C. test case live2
+D. Compilation fails
+E. An exception is thrown at runtime
+==================================================================
+ 
+4. Given:
+class Feline {
+public static void main(String[] args) {
+long x = 42L;
+long y = 44L;
+System.out.print(" " + 7 + 2 + " ");
+System.out.print(foo() + x + 5 + " ");
+System.out.println(x + y + foo());
+}
+static String foo() { return "foo"; }
+}
+What is the result?
+A. 9 foo47 86foo
+B. 9 foo47 4244foo
+C. 9 foo425 86foo
+D. 9 foo425 4244foo
+E. 72 foo47 86foo
+F. 72 foo47 4244foo
+G. 72 foo425 86foo
+H. 72 foo425 4244foo
+I. Compilation fails
+=====================================================================
+ 
+5. Given:
+public class Cowboys {
+public static void main(String[] args) {
+int x = 12;
+int a = 5;
+int b = 7;
+System.out.println(x/a + " " + x/b);
+}
+}
+What is the result? (Choose all that apply.)
+A. 2 1
+B. 2 2
+C. 3 1
+D. 3 2
+E. An exception is thrown at runtime
+================================================================
+ 
+6. (OCP Only) Given:
+ 
+3. public class McGee {
+4. public static void main(String[] args) {
+5. Days d1 = Days.TH;
+6. Days d2 = Days.M;
+7. for(Days d: Days.values()) {
+8. if(d.equals(Days.F)) break;
+9. d2 = d;
+10. }
+11. System.out.println((d1 == d2)?"same old" : "newly new");
+12. }
+13. enum Days {M, T, W, TH, F, SA, SU};
+14. }
+What is the result?
+A. same old
+B. newly new
+C. Compilation fails due to multiple errors
+D. Compilation fails due only to an error on line 7
+E. Compilation fails due only to an error on line 8
+F. Compilation fails due only to an error on line 11
+G. Compilation fails due only to an error on line 13
+=======================================================================
+ 
+7. Given:
+4. public class SpecialOps {
+5. public static void main(String[] args) {
+6. String s = "";
+7. boolean b1 = true;
+8. boolean b2 = false;
+9. if((b2 = false) | (21%5) > 2) s += "x";
+10. if(b1 || (b2 == true)) s += "y";
+11. if(b2 == true) s += "z";
+12. System.out.println(s);
+13. }
+14. }
+Which are true? (Choose all that apply.)
+A. Compilation fails
+B. x will be included in the output
+C. y will be included in the output
+D. z will be included in the output
+E. An exception is thrown at runtime
+=============================================================
+ 
+8. Given:
+3. public class Spock {
+4. public static void main(String[] args) {
+5. int mask = 0;
+6. int count = 0;
+7. if( ((5<7) || (++count < 10)) | mask++ < 10 ) mask = mask + 1;
+8. if( (6 > 8) ^ false) mask = mask + 10;
+9. if( !(mask > 1) && ++count > 1) mask = mask + 100;
+10. System.out.println(mask + " " + count);
+11. }
+12. }
+Which two are true about the value of mask and the value of count at line 10? (Choose two.)
+A. mask is 0
+B. mask is 1
+C. mask is 2
+D. mask is 10
+E. mask is greater than 10
+F. count is 0
+G. count is greater than 0
+===============================================================================
+ 
+9. Given:
+3. interface Vessel { }
+4. interface Toy { }
+5. class Boat implements Vessel { }
+6. class Speedboat extends Boat implements Toy { }
+7. public class Tree {
+8. public static void main(String[] args) {
+9. String s = "0";
+10. Boat b = new Boat();
+11. Boat b2 = new Speedboat();
+12. Speedboat s2 = new Speedboat();
+13. if((b instanceof Vessel) && (b2 instanceof Toy)) s += "1";
+14. if((s2 instanceof Vessel) && (s2 instanceof Toy)) s += "2";
+15. System.out.println(s);
+16. }
+17. }
+What is the result?
+A. 0
+B. 01
+C. 02
+D. 012
+E. Compilation fails
+F. An exception is thrown at runtime
+ 
