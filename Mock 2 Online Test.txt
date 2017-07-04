@@ -1,0 +1,2353 @@
+Under which conditions the method "console(-)" of the class java.lang.System may return null:
+
+Explanation...
+
+
+System.console() is a method that is newly added to Java 6. Since OCPJP 1.6 objectives include this new method, it deserves your attention more. If you have not yet seen the documentation of this method, open a new browser tab and search for something like "java6 java.lang.System" on Google. The first result would be the official documentation page. In case if Google messed the search listing, here is the direct link:
+
+http://docs.oracle.com/javase/6/docs/api/java/lang/System.html#console()
+
+Pay attention to the description of the console() method. You are expected to know just about EVERYTHING of this method, including its parameters, static/nonstatic nature, return type, and what that method does.
+
+The first thing that should come to your mind when you see this question is System.console() doesn't take parameters. Therefore, it is clear that answers A, B, and C must be wrong. So you have a choice between D and E.
+
+Another thing you should know about this method is it was not there prior to Java 6 (JDK 1.6). So if a programmer with JDK 1.5 tries to access this unavailable method, it won't compile.
+
+Therefore, the correct answer is D. Ideally, this is something you must strongly memorize. If you go back to the link I posted above, you can see it in the "return" section, which says it would return "the system console, if any, otherwise null." What that means is if there was no console associated with the Java system, this method should return null. That's what the answer D says too.
+
+Click here to discuss anything about this question with a dedicated tutor.
+
+--------------------------------------------------------------------------------------------------------
+
+
+import java.util.*;
+public class Test
+{
+	public static void main(String[] args)
+	{
+		TreeSet<Test> at = new TreeSet<Test>();
+		at.add(new Tree());
+		at.add(new Tree());
+		at.add(new Tree());
+		System.out.println(at.first());
+	}
+}
+
+Explanation...
+
+This question is about TreeSet. When you see the word "Tree", the first thing that should come to your mind is sorting. Yes, TreeSet tries to automatically sort anything you add to it, at the same time you add it. So if you add something like "banana", "orange", and "apple", in that order, you will end up with a list that has the elements in the alphabetical order: "apple", "banana", "orange".
+
+However, in this program, we are not adding Strings or numbers, where sorting order would have been obvious. Instead, we adding 3 objects of our class 'Test'. The question is how these 3 objects should be sorted.
+
+To understand what's going on, you should know a little bit of how TreeSet sorts Strings. Let's consider the above banana-orange-apple example. Each time you add a String value (that's an object, right?) to TreeSet, the internal program of the TreeSet class tries to cast it to java.lang.Comparable interface. Why? Because the Comparable interface has the methods that TreeSet can use to compare Strings (or whatever object). So to be able to call these methods, the internal program of TreeSet needs a "Comparable" reference to each object you add to it. Luckily, the original String class implements Comparable interface, so it can be safely casted. However, in our case, where we add Test objects, TreeSet fails to cast it to Comparable, because Test does NOT implement Comparable. Now as it fails to cast objects to Comparable, it throws ClassCastException. Therefore, the answer is F.
+
+However, you don't need to keep this whole bulk in the mind. Just keep it in the mind that whenever you attempt to sort some stuff that do NOT implement java.lang.Comparable interface, it will throw ClassCastException. The only exception would be when you have a Comparator, which is a different story that you don't need to bother for now, as you will find many questions focusing Comparator later. 
+
+Here is a bonus question: what would have happened if the Test class had implemented java.lang.Comparable? Would it compile then? Well, you might say yes, but wait! When you implement an interface, the next thing you will be forced to is implementing the methods defined in that interface, right? So as soon as you implement Comparable, the compiler will alert you asking you to implement the methods defined in that interface - compareTo(Object). Be focused to track such tricky things. 
+Click here to discuss anything about this question with a dedicated tutor.
+
+
+--------------------------------------------------------------------------------------------------------
+
+
+ 1.  class SuperClass{
+ 2.    static void printMe(){
+ 3.      System.out.print("super context ");
+ 4.    }
+ 5.  }
+ 6.  
+ 7.  public class SubClass extends SuperClass{
+ 8.    public static void printMe()throws ArithmeticException{
+ 9.      System.out.print("sub context ");
+10.   }
+11.   public static void main(String argv[]){
+12.     SuperClass sc=new SubClass();
+13.     sc.printMe();
+14.   }
+15. }
+
+
+Explanation...
+
+
+The theory of Runtime-polymorphism does NOT apply here, because both super class method and sub class method are static. So answer-A is correct.
+
+Answer-G is wrong, because you can make the subclass's method public, even though the SuperClass's method is not public. You can use the "throws" keyword anywhere with no matter at compilation, when it is an unchecked exception ( the ones that extends RuntimeException). ArithmeticException is-a RuntimeException.
+
+Answer-H also correct, because you can remove "throws ArithmeticException" from line-8, without causing any side-effect. The phrase "throws ArithmeticException" is unnecessary here, given that ArithmeticException is-a RuntimeException.
+Click here to discuss anything about this question with a dedicated tutor.
+
+
+--------------------------------------------------------------------------------------------------------
+
+
+public class LongExp{
+  LongExp() throws Exception{
+    LongExp.start();
+  }
+  public static void start()throws RuntimeException{
+    throw new IllegalMonitorStateException();
+  }
+  public static void main(String args[]) throws Throwable{
+    try{
+      try{
+        try{
+          new LongExp();
+        } catch(Throwable t){
+          throw t;
+        }
+      }catch(Throwable t){
+        if (t instanceof IllegalMonitorStateException){
+          throw (RuntimeException)t;
+        }else{
+          throw (IllegalMonitorStateException)t;
+        }
+      }
+    }catch(IllegalMonitorStateException e){
+      System.out.println("Inside-IllegalMonitorStateException");
+    }catch(RuntimeException e){
+      System.out.println("Inside-RuntimeException");
+    }catch(Exception e){
+      System.out.println("Inside-Exception");
+    }catch(Throwable e){
+      System.out.println("Inside-Throwable");
+    }
+  }
+}
+
+
+Explanation...
+
+Don't panic when you see a this kind of questions in the real exam.
+
+The constructor LongExp() executes the static method start(), which will definitely throw the unchecked exception, IllegalMonitorStateException.
+
+Now, look at the main method. The statement "new LongExp();" throws an instance of IllegalMonitorStateException, as I described above. Thrown exception will be caught and re-thrown by the following block:
+
+    catch(Throwable t){
+          throw t;
+     }
+
+The rethrown instance of the IllegalMonitorStateException will be caught by the following block:
+
+     }catch(Throwable t){
+            if (t instanceof IllegalMonitorStateException){
+                 throw (RuntimeException)t;
+            }else{
+               throw (IllegalMonitorStateException)t;
+            }
+     }
+
+In the above catch block, the variable 't' refers the thrown instance of IllegalMonitorStateException with a Throwable reference. Therefore the 'if' conditional-expression "t instanceof IllegalMonitorStateException" will be evaluated to 'true', and then the statement "throw (RuntimeException)t;"  casts the Throwable reference of this IllegalMonitorStateException to a reference of RuntimeException; and then, the instanceof IllegalMonitorStateException, which now has a reference of RuntimeException (after the cast), will be thrown to the outer catch blocks.
+
+The above thrown exception will be caught by the following catch block, at the runtime:
+
+      }catch(IllegalMonitorStateException e){
+             System.out.println("Inside-IllegalMonitorStateException");
+      }
+
+Note that thrown exceptions are caught by catch blocks based on the runtime type of the thrown exception, instead of its reference type. This is in contrast to how overloaded methods are invoked.
+Click here to discuss anything about this question with a dedicated tutor.
+
+--------------------------------------------------------------------------------------------------------
+
+
+1. import java.util.*;
+2. import java.io.*;
+3. 
+4. public class MDemp{
+5. 
+6.   public static void main(String args[]){
+7. 
+8.     //Today is 02/07/2008
+9.      Date dt1=new Date();
+10.    Date dt2=new Date(1000);
+11.    boolean b1=dt1.before(dt2);
+12.    boolean b3=new File("script1.js").isFile();
+13.    boolean b4=false;
+14.    int x=0;
+15.
+16.    do{
+17.      x++;
+18.
+19.      switch(x){
+20.        case 0: System.out.print("A "); break;
+21.        case 1: System.out.print("B "); break;
+22.        case 2: System.out.print("C "); break;
+23.        case 3: System.out.print("D "); 
+24.            if(b1){ b4=true;} break;
+25.        case 4: System.out.print("E ");
+26.            if(!b1){ b4=true;} break;
+27.      }
+28.
+29.      if(b4){ break; }
+30.
+31.    }while(b3=true);
+32.
+33.  }
+34.
+35. }
+
+
+Explanation...
+
+Given that today is 02/07/2008 (MM/DD/YYYY). Therefore dt1 contains a Date object that represents the day of 02/07/2008.
+
+A numerical value (1000) has been passed to the Date instantiation at Line-10. This will call the constructor Date(long).
+
+Pay attention! This constructor IS available in the Oracle exam database. The documentation describes "The method Date(long) allocates a Date object and initializes it to represent the specified number of milliseconds since the standard base time known as "the epoch", namely January 1, 1970, 00:00:00 GMT. "
+
+Relax! You don't have to memorize that specific date (January 1, 1970, 00:00:00 GMT). However, you are expected to know what this constructor does in basic terms.
+
+You are expected to know that the argument you have specified is the number of milliseconds since the "Unix epoch".
+
+In this program, the value passed to this constructor is 1000. 1000 milliseconds is equivalent to 1 second. Therefore, the specified date is just one second ahead from the Unix epoch. Therefore that new date is much earlier than today's date (02/07/2008)
+
+Because of the above reason, the expression "dt1.before(dt2)" will be evaluated to "false" definitely.
+
+With the information provided, the expression "new File("script1.js").isFile()" can be evaluated to either 'true' or 'false', as we don't know whether the file "script1.js" is available or not in the current directory. However, we don't have to care about it, because this program provides a unique output independent from the initial value of the variable b3, because the expression we specified here at the while condition is "b3=true" - not "b3==true". So it does an assignment which in turns evaluated to be true.
+Click here to discuss anything about this question with a dedicated tutor.
+
+
+--------------------------------------------------------------------------------------------------------
+
+
+Which of the following are true:
+
+
+Explanation...
+
+
+Answer-B is wrong, because interface methods are NOT "static", even though they are implicitly public and abstract.
+
+Answer-C is wrong, because the keyword "abstract" is available only for classes, methods, interfaces and method prototypes. This keyword cannot be used with variable declarations.
+
+Answer-D is wrong, because some interfaces (which are called as "marker interfaces") have no method declared. The interface java.io.Serializable is an example of marker interfaces.
+
+Answer-E and Answer-F are wrong, because there is no class or interfaced in the Java SE API as java.lang.Interface.
+
+Answer-H is wrong, because the keyword "implements" can be used only at class declarations. It cannot be used at the declaration line of an interface.
+
+Answer-A is correct, because interface methods are implicitly abstract, and we can declare it explicitly too.
+
+Answer-G is correct, because a class can "implements" from multiple comma-separated interfaces.
+
+Answer-I is correct, because any object, which has an interface-reference, can be implicitly casted to a java.lang.Object reference, without doing any explicit cast.
+Click here to discuss anything about this question with a dedicated tutor.
+
+
+--------------------------------------------------------------------------------------------------------
+
+Most - secure way to read a password from a console.
+
+
+Explanation...
+
+
+
+Answer-C, D, E, F and G are wrong because the given methods are not defined in the java.io.Console class.
+
+Answer-A, java.io.Console.readLine() returns a String value which represents the text entered by the user. Due to Java pooling mechanism of String literals, it is possible for the so entered password to be pooled in the heap. Hence if this method is used to input the password, it is possible for a someone with a bad intention to steal that password out from the String pool!. Therefore, this method is not secured on password reading.
+
+Answer-B, java.io.Console.readPassword() returns a char array (char[]) which represents the password,  instead of a String. Since array objects are not poolable in the JVM heap, the program can completely destroy the array, after validating the password.
+Click here to discuss anything about this question with a dedicated tutor.
+
+
+
+--------------------------------------------------------------------------------------------------------
+
+
+Given the following code fragment:
+  12. 
+  13. StringBuffer sb=new StringBuffer("Prometric");
+  14. sb.append(new StringBuilder("Test"));
+  15. sb.delete(4,8).insert(2,"se");
+  16. System.out.print(sb);
+  17.
+  
+  
+Explanation...
+
+
+You have to note that StringBuffer and StringBuilder are NOT immutable as Strings are. Immutable means, you can't edit the contents of an object. String is immutable, because once we say something like:
+    String txt = "Hello World";
+You can't edit the contents of the object "txt". Of course, you can say something like?
+    txt = txt + " new word";
+but that creates a new string object instead of modifying what was in the String objected that was referred from the original 'txt' reference. StringBuffer and StringBuilder are NOT immutable as String are. 
+
+The "append" method appends the given text to the existing StringBuffer. 
+
+The "delete" method removes the text from the given location.
+
+The "insert" method adds the given String to the given location.
+
+To answer this type of questions, write down the existing text (i.e.. "Prometric"), and do the modification on it.
+Click here to discuss anything about this question with a dedicated tutor.
+
+
+
+--------------------------------------------------------------------------------------------------------
+
+
+
+Given the following code fragment:
+System.out.printf("12%1$s","13%1$s","14%1$s");
+
+
+Explanation...
+
+
+When you use the printf method, only the first argument will be considered as the formatting text. The other arguments are considered as normal Strings, which may be formatted per what the first argument says
+Click here to discuss anything about this question with a dedicated tutor.
+
+
+--------------------------------------------------------------------------------------------------------
+
+Which of the methods are static.
+
+
+Explanation...
+
+
+The classes Thread, Integer, Long, Object, Collections, Arrays and Scanner are currently available in the SCJP 6.0 objectives. So you have to pay more attention about which are static and which are not. The good news is it is easy to remember - just read the JavaSE documentation asking yourself questions like "why this method is static?, or "why this method is non-static?"
+
+For an example, "Integer.parseInt" is static, because parsing an integer is something we can do independent to the state of the current object. We don't need to have an object of Integer to parse a another integer, right? So why should it be non-static?
+
+On the other hand, the method "Thread.join" is non-static, because it may join the current thread to the "specified" thread. That means, an object of Thread instance is needed, and that's what it will join with the other thread that was given as the argument passed to this method. That's why that method is non-static.
+Click here to discuss anything about this question with a dedicated tutor.
+
+
+--------------------------------------------------------------------------------------------------------
+
+
+public class A{
+
+  private String runNow(){
+    return "High";
+  }
+
+  static class B extends A{
+    public String runNow(){
+      return "Low";
+    }
+  }
+
+  public static void main(String args[]){
+    A[] a=new B[]{new B(),new C()};
+    for(A aa:a)
+      System.out.print(aa.runNow()+" ");
+  }
+
+}
+
+class C extends A.B{
+
+  public String runNow(){
+    return "Out";
+  }
+
+}
+
+
+Explanation...
+
+
+Pay attention to the access modifier of the runNow() method in class A, which is "private".
+
+So the runNow() method in class A is invisible to the class B, and class C, even though class B is an inner class. So  neither concepts of overriding nor runtime-polymorphism will be applied here.
+
+Inside the main method, every element inside the array "a" has a reference to "A". When attempting to invoke the runNow() method, the method in the reference (class "A") will be executed, because of the reason which described above.
+Click here to discuss anything about this question with a dedicated tutor.
+
+
+--------------------------------------------------------------------------------------------------------
+
+
+  public class Count{
+    public static void main(String args[]){
+      String s="sri";
+      switch(s){
+        case "SRI": System.out.print("SRI LANKA ");
+        case "Sri": System.out.print("Sri Lanka ");
+        case "sri": System.out.print("sri lanka ");
+        case "sRI": System.out.print("sRI lANKA ");
+        default: System.out.print("www.lanka.lk");
+      }
+    }
+  }
+  
+  
+  Explanation...
+  
+  
+  Remember the rules of switch-case.
+
+The expression of the switch() part should be one of the followings:
+
+* byte
+* sort
+* int
+* java.lang.Byte
+* java.lang.Short
+* java.lang.Integer
+* Enum
+Click here to discuss anything about this question with a dedicated tutor.
+
+
+--------------------------------------------------------------------------------------------------------
+
+
+ import java.util.regex.*;
+  public class Count{
+    public static void main(String args[]){
+      Pattern pt=Pattern.compile("Sun Certified Java Programmer");
+      Matcher mt=pt.matcher("Certified");
+      mt.find();
+      System.out.print(mt.group());
+    }
+  }
+
+  
+  
+  Explanation...
+  
+  
+  When you use  Pattern and Matcher, the formatting-String (Pattern of formatting) should be passed to the Pattern.compile(-) method; and the plain text should be passed to the matcher(-) method.
+
+In this program, it attempts to find "Sun Certified Java Programmer" from the String "Certified", which is not really unavailable. So, IllegalStateException will be produced at the runtime, when attempting to use the group() method.
+Click here to discuss anything about this question with a dedicated tutor.
+
+
+--------------------------------------------------------------------------------------------------------
+
+
+Given the following code fragment:
+  class A{}
+  class B extends A{}
+  class C extends B{}
+  class D extends C{}
+  public class XLoad{
+    public static void main(String args[]){
+      A[] a=new C[1];
+      //Insert Here
+    }
+  }
+  
+  
+  Explanation...
+  
+  
+  
+  The statement A[] a=new C[1]; initializes an array with one element. So the only available index will be a[0]. Attempting to access a[1] will throw an ArrayIndexOutOfBoundsException at the runtime. So the Answer-A will throw this exception, and so it is a correct answer.
+
+As the declaration and construction of this array, the available objects for COMPILE-TIME must either be "A" or sub types of "A". And  the available objects for RUN-TIME, must either be "C" or sub types of "C".
+
+B is-a(n) A, so it is legal to compile.
+But B is-not-a C, so ArrayStoreException will be thrown at the runtime.
+Therefore the Answer-B is correct.
+
+Object is-not-a(n) A, so it will not compile.
+So the Answer-E is wrong
+Click here to discuss anything about this question with a dedicated tutor.
+
+
+--------------------------------------------------------------------------------------------------------
+
+
+Given the following code fragment:
+  try{			
+  }catch(Exception e){
+      System.out.println(e);
+  }
+  
+  
+  Explanation...
+  
+  
+  The exception "Exception" is NEITHER a fully checked nor fully unchecked exception. It can be considered as partially checked, and partially unchecked!
+
+The above code compiles successfully, as "Exception" is an unchecked exception. If it was considered as a checked exception, Answer-D would have been the correct answer.
+
+However, what will happen when you define the following method?:
+
+        void checkEx(){
+             throw new Exception();
+        }
+
+The above method gives a compile error, as "Exception" is a checked exception. To be able to compile, checkEx() must be declared with "throws Exception" as below:
+
+        void checkEx() throws Exception{
+             throw new Exception();
+        }
+
+
+Note: The class "Throwable" follows the same scenario as above. Try it out yourself.
+Click here to discuss anything about this question with a dedicated tutor.
+
+
+--------------------------------------------------------------------------------------------------------
+
+
+  interface I{}
+  class A{}
+  class B implements I{}
+  class C extends A{} 
+  class D{}
+  final class E{}
+  
+  class InstOf{
+    public static void main(String args[]){
+      Boolean b;
+      //Insert Here
+    }
+  }
+  
+  
+  Explanation...
+  
+  
+  According to the given class hierarchy,
+
+   * B is-a(n) I
+   * C is-a(n) A
+
+Answer-A, Answer-B, Answer-C and Answer-D are legal, because you can use any non-final class as the left-side-operand operand for the instanceof operator, if the right-side operand is an interface (can use any interface).
+
+Answer-F, Answer-G, and Answer-I are legal, because you can use any non-final class array as the left-side-operand for the instanceof operator, if the right-side operand is an array of an interface (can use any interface).
+
+Answer-H is legal, because every array is-a(n) Object array.
+Generically, "X[] is-a(n) Object[]", where X is an unknown type.
+
+Answer-E gives a compile time error, because E is a final class, and E is-not-a(n) I.
+To be able to compile, class E should implement the interface I,
+OR,
+class E should be defined as a non-final class.
+Click here to discuss anything about this question with a dedicated tutor.
+
+
+--------------------------------------------------------------------------------------------------------
+
+
+enum Menum{
+  A(){
+    public void floor(){
+      std=5;
+    }
+  },
+  B(){
+    public void floor(){
+      std=30;
+    }
+  },
+  C(){
+    public void floor(int y){
+      std=55;
+    }
+  };
+
+  int std=0;
+
+  public void floor(){
+    std=1;
+  }
+
+  public String toString(){
+    return "["+std+"]";
+  }
+
+}
+
+
+public class Rootings{
+
+  public static void main(String args[]){
+
+    Menum m1=Menum.A;
+    m1.floor();
+    Menum m2=Menum.B;
+    m2.floor();
+    Menum m3=Menum.C;
+    m3.floor();
+    System.out.println(m1+" "+m2+" "+m3);
+
+  }
+
+}
+
+
+
+Explanation...
+
+
+Have a look at the following code fragment:
+
+        Menum m1=Menum.A;
+        m1.floor();
+
+The statement m1.floor(); attempts to find the method floor() in A's block, of Menum
+
+     A(){
+          public void floor(){
+               std=5;
+          }
+     }
+
+Yes, it is available, and therefore the above floor() method will be executed.
+
+The statement m2.floor() follows the same scenario as above.
+
+When it comes to m3.floor(), it attempts to find the method floor() in C's block.
+
+     C(){
+          public void floor(int y){
+               std=55;
+          }
+     }
+
+No! the method floor() is NOT available in C's block. (an overloaded version floor(int) is available though). Therefore, it attempts to find the method floor(), from outside blocks.
+
+Yes, following method is found!
+
+     public void floor(){
+          std=1;
+     }
+
+Therefore, it will be executed.
+Click here to discuss anything about this question with a dedicated tutor.
+
+
+--------------------------------------------------------------------------------------------------------
+
+
+
+  public class Asrt{
+    public static void main(String args[]){
+      boolean[] b=new boolean[]{true,false,true,false};
+      if(b[1]&&b[3])
+        b[0]=false;
+      if(b[1]&&b[2])
+        b[0]=true;
+      System.out.print("Before Assert ");
+      assert b[0]&&b[2];
+      System.out.print("After Assert ");
+    }
+  }
+
+  
+  
+ Explanation...
+ 
+ 
+ The statements b[0]=false; and b[0]=true; will NOT be executed, because the given "if" conditions will first be evaluated to false.
+
+When, the statement "assert b[0]&&b[2];" being executed, the expression "b[0]&&b[2]" will be evaluated to true. So as our assumption was correct, the AssertionError will NOT be thrown.
+
+Finally the statement System.out.print("After Assert ");  will be executed.
+Click here to discuss anything about this question with a dedicated tutor.
+
+
+--------------------------------------------------------------------------------------------------------
+
+
+Given the following code fragment:
+  14.  int i=4;
+  15.  try{
+  16.   i=i/0;
+  17.  }catch(InterruptedException e){
+  18.    System.out.print("ie ");
+  19.  }catch(ArrayIndexOutOfBoundsException e){
+  20.    System.out.print("aioob ");
+  21.  }catch(RuntimeException e){
+  22.   System.out.print("re ");
+  23.  }catch(Exception e){
+  24.    System.out.print("e ");
+  25.  }
+  
+  
+  Explanation...
+  
+  
+  Unlike the other exceptions shown in this code, InterruptedException is a checked exception; because InterruptedException is-not-a RuntimeException. If you have declared a checked exception to be caught with a catch block, there must be at least one statement in the try block that can probably throw that exception. In other words, there must be a statement in the try block that calls to a method which is declared with a throws clause implying that that exception may be thrown.
+
+In this program, the InterruptedException will NEVER be thrown from the try block.
+Click here to discuss anything about this question with a dedicated tutor.
+
+
+--------------------------------------------------------------------------------------------------------
+
+
+enum Status{
+  TypeA, TypeB
+}
+
+public class TClass implements Runnable{
+
+  Status st;
+
+  TClass(Status st){
+    this.st=st;
+  }
+
+  public void run(){
+    switch(st){
+      case TypeA: goA(); break;
+      case TypeB: goB(); break;
+      default: assert true; assert true; break;
+    }
+  }
+
+  public void goA(){
+    for(int i=1; i<=4; i++)
+      System.out.print("A:"+i+" ");
+  }
+
+  public void goB(){
+    for(int i=1; i<=4; i++)
+      System.out.print("B:"+i+" ");
+  }
+
+  public static void main(String args[]){
+    new TClass(Status.TypeA).start(true);
+  }
+
+  public void start(boolean b){
+    new Thread(this).start();
+    new Thread(new TClass(Status.TypeB)).start();
+  }
+
+}
+
+
+
+Explanation...
+
+
+This program uses an enum declaration, assertions, method overloading and switch-case statement for Enums together.
+
+Don't panic when you see this type of question in the exam. Just relax and read the program carefully. First, make sure that this program has NO compile time errors. Note that, the statement "assert true;" will NEVER throw the AssertionError.
+
+Now try to understand the basic flow of this program.
+
+As you might have already seen, this will create two thread objects. First one is with "typeA", and the second one is with "typeB". These two threads will run independently. TypeA thread invokes the goA() method, and TypeB thread invokes the goB() method independently. Therefore goA() and goB() methods will be executed independently by separate threads. But the order of the execution is unpredictable.
+
+The goA() method prints the sequence like "A:1, A:2, A:3, A:4". The goB() method prints the sequence like "B:1, B:2, B:3, B:4". But the execution order may be coupled together.
+
+Now check at the given answers.
+
+Answer-E is wrong, because "A0" nor "B0" will not be printed by this program.
+Answer-F is wrong, because there is NO way to print B3 before B2.
+Answer-H is wrong, because there is NO way to print A2 before A1.
+
+So the answers G and I are the correct answers.
+Click here to discuss anything about this question with a dedicated tutor.
+
+
+
+--------------------------------------------------------------------------------------------------------
+
+
+class Profile{
+
+  private int a;
+
+  public Profile(int a){
+    this.a=a;
+  }
+
+  private Boolean equals(Profile p){
+    return p.a==this.a;
+  }
+
+}
+
+public class Usage{
+
+  public static void main(String args[]){
+    Profile pf1=new Profile(4);
+    Profile pf2=new Profile(4);
+    Object ob=pf1.equals(pf2);
+    System.out.print(ob);
+  }
+
+}
+
+
+
+Explanation...
+
+
+The Profile class has NO valid overriding version of "equals" method, because the signature of the equals method in the super class (java.lang.Object) class is, equals(Object).
+
+The signature of the equals method in the Profile class is equals(Profile). So this is only an overloading - not an overriding. So the keyword "private" can be used with the equals method.
+
+When executing the statement "Object ob=pf1.equals(pf2);" It will NOT execute the "equals" method in the Profile class, beecause the visibility of the Profile.equals method is "private", and so it is invisible for the Usage class. So it will execute the method Object.equals(Object) which is in the Object class, the super class of Profile, and returns false.
+
+This returned boolean value (false) will be auto-boxed to the Boolean wrapper, and will be printed by the statement System.out.print(ob);
+Click here to discuss anything about this question with a dedicated tutor.
+
+
+--------------------------------------------------------------------------------------------------------
+
+
+What are true:
+
+
+Explaination...
+
+
+According to the principles of polymorphism, an abstract class cannot be instantiated. It may be used only as a reference type. Answer-A is correct because of that.
+
+We know interface methods are implicitly abstract and public. However, an abstract method in an abstract class can either public, protected, or default.
+Therefore Answer-B is wrong.
+
+Most of the modifiers in Java language cannot be used in combine with "abstract" keyword. However, for the exam, you have to remember that the combination "abstract private" is valid only when it comes to declare an inner class. Just keep that in your mind.
+Click here to discuss anything about this question with a dedicated tutor.
+
+
+--------------------------------------------------------------------------------------------------------
+
+
+Given the following code fragment:
+import java.util.*;
+public class GenClass{
+  public static void main(String args[]){
+    List<? extends Number> ml=new Vector<Integer>();
+    //Insert Here
+  }
+}
+
+
+Explanation...
+
+The reference type of "ml" is "List<? extends Number>"
+What does this generic type imply? Yes it impies "any sub class of Number".
+
+However, do NOT think that you can pass "any sub class of Number" to a method of 'ml'. It is not what the generic type means.
+The real meaning of the above generic reference type can be identified as the INSTANTIATION of ml can be done with any sub class of Number as the generic type".
+
+What that means is following statements are legal, for examples:
+
+     * List<? extends Number> ml=new Vector<Integer>();
+     * List<? extends Number> ml=new Vector<Double>();
+     * List<? extends Number> ml=new Vector<Short>();
+
+The above statements are legal because Integer, Double and Short are sub types of Number.
+
+Now, getting back to the question, what can we pass to the add(-) method?
+
+Be careful when reasoning this. The compiler doesn't know what will be the instantiation generic type (right side) at the compilation time. It can be Integer, Double, Short, or any other sub type of Integer.
+
+The key point you have to carefully understand is the COMPILER doesn't know what exact generic there will be at the runtime. Because the compiler deals only with reference types, it only knows that the reference type says <? extends Number>, which in turn means the generic type of the isntantation part can be anything from Integer, Double, Short, or any other sub-type of B.
+
+To understand why the compiler works in this way, imagine a scenario in which you assign so many instantiations for a single reference within a loop, or in a nested if condition. The compiler won't be able to identify the instantiation type without having it actually run. To make it further clarified, consider the code below:
+
+List<? Extends Number> ml;
+if(userInput == 'D'){
+      ml = new Vector<Double>();
+}else{
+      ml = new Vector<Integer>();
+}
+
+What is the generic type of the instantiation part of 'ml'? Is it Double or Integer? The answer depends on the value of 'userInput', so we can't predict it without actually running the program. This is why compiler never deals with instantation types.
+
+Because of the above reason, to be able to compile, the argument you pass to ml.add(-) method, MUST be something that can be accepted with any possible instantiation generic type. What if we pass an Integer object? It won't be able to add if the instantiation generic type was Double. What if we pass Double object? It won't be able to add if the instantiation generic type was Integer. What if we pass an object of java.lang.Object? It won't be able to pass that value with whatever instantiation generic type. 
+
+As I described above, the compiler doesn't know what the instantiation Generic type is. Therefore, the compiler never gives you a chance to pass anything to the "ml.add(-)" method. Wait! What if we pass a 'null' value to the add(-) method? Can null be accepted with all possible instantiation generic types? Try it out yourself and note down what you understood.
+
+Answer-B, Answer-C, Answer-D and Answer-E are wrong, because of the above reason.
+Answer-G and Answer-H are wrong, because the signature of the method "List.get" is List.get(int)
+
+In addition to this question, you should also know what would happen if the above statement is replaced with the following one:
+
+        List<? super Number> ml=new Vector<Object>();
+
+Now it says <? super Number> in the reference type. What that means is the instantiation generic type could be anything a super-type of Number. With that declaration, what can you pass to the add(-) method? Try thinking over it rationally. 
+
+You have to be fully concentrated about the usages of <? extends X> and <? super X>, before taking the real exam.
+Click here to discuss anything about this question with a dedicated tutor.
+
+
+--------------------------------------------------------------------------------------------------------
+
+
+
+public class MaClass{
+  {
+    System.out.print("SCEA, ");
+  }
+  static{
+    System.out.print("SCJP, ");
+  }
+  static String s1=getVal();
+  static String s2="Web Componet Developer, ";
+
+  private static String getVal(){
+    System.out.print("Mobile Application Developer, ");
+    return s2;
+  }
+
+  public static void main(String args[]){
+    System.out.print(s1);
+  }
+}
+
+
+
+
+Explanation...
+
+
+When the class is being loaded into the memory, the static-initialization block will be executed at the first place. Therefore, the statement " System.out.print("SCJP, ");" prints "SCJP, ".
+
+After that, the static variables will be initialized in the same order as they are defined in the class.
+
+The statement "static String s1=getVal();" says that the variable 's1' should be initialized with the return value of the static method getVal(). Therefore, the method getVal() will be executed. In the method getVal(), the statement "System.out.print("Mobile Application Developer, ");" prints "Mobile Application Developer, ", and then the statement
+"return s2;" returns the 'current' value of the variable 's2'.
+
+However, the variable 's2' is not yet initialized. Therefore, it contains the default value 'null'. This method returns the above 'null' value, and it will be assigned to the variable 's1'.
+
+After that, variable 's2' will be initialized. However, it may not change the value of the variable 's1', because 's1' is already initialized.
+
+Now, the class is fully loaded into the memory, and it can now execute the main method.
+
+In the main method, the statement "System.out.print(s1);" prints the value of the variable 's1', (i.e.: null).
+Click here to discuss anything about this question with a dedicated tutor.
+
+
+--------------------------------------------------------------------------------------------------------
+
+
+
+public class Gabc{
+
+  static int i=0;
+  Gabc g=null;
+
+  public void finalize(){
+    i++;
+  }
+
+  public static void main(String arhs[]){
+    Gabc gab1=new Gabc();
+    Gabc gab2=new Gabc();
+    Gabc gab3=new Gabc();
+    gab3.g=gab1;
+    gab1.g=gab2;
+    gab3.g=gab2;
+    gab1=null;
+    gab3=null;
+    Runtime.getRuntime().gc();
+    System.out.print(i+" objects removed");
+  }
+
+}
+
+
+Explanation...
+
+
+This question is not about how many objects available for the GC. The question is, "What will be the result of this program?".
+
+We know that the finalize() method of an object will be executed only before that object gets destroyed by the GC - not just when it becomes 'available' for the GC. On the other hand, we know that it is unpredictable that an object eligible for GC will ever be deleted. Therefore execution of the finalize() object is unpredictable.
+Click here to discuss anything about this question with a dedicated tutor.
+
+--------------------------------------------------------------------------------------------------------
+
+Given the following code fragment:
+  1. class A{
+  2.   protected Number take(){return 4;}
+  3. }
+  4. 
+  5. class B extends A{
+  6.   // Insert Here
+  7. }
+  
+  
+  Explanation...
+  
+  To answer for this type of questions, you have to remember the rules about method overriding.
+
+Answer-A and Answer-C are wrong: The visibility of the sub class method (overriding method) cannot be weaker than its super class method (overridden method).
+
+Answer-E is wrong: The return type of the sub class method (overriding method) should be same or a subtype of its super class method (overridden method).
+
+Answer-H is wrong, because "Long.longValue" is a parameter-less nonstatic method.
+
+Answer-I is wrong: If the super class method (overridden method) is a nonstatic method, sub class method (overriding method) also should be a nonstatic method.
+
+Answer-B, Answer-F and Answer-G are examples of valid overriding.
+Answer-D represents a valid overloading, instead of overriding.
+Click here to discuss anything about this question with a dedicated tutor.
+
+
+--------------------------------------------------------------------------------------------------------
+
+
+import java.util.*;
+
+public class NavMapEx{
+
+  public static void main(String... args){
+
+    NavigableMap<String,Integer> navmp=new TreeMap<String,Integer>();
+    navmp.put("one",1);
+    navmp.put("two",2);
+    navmp.put("three",3);
+    navmp.put("four",4);
+    navmp.put("five",5);
+    navmp.put("six",6);
+    
+    String[] ob=new String[]{
+      navmp.lowerKey("five"),
+      navmp.higherKey("five"),
+      navmp.ceilingKey("five"),
+      navmp.floorKey("five"),
+    };
+    
+    for(int i=0; i<ob.length; i++){
+      System.out.println(ob[i].toString()+",");
+    }
+
+  }
+  
+}
+
+
+
+
+Explanation...
+
+
+If you are given to answer a question that has something to do with String sorting, try to sort the given list at the first place. String sorting is done following the alphabetical order. Therefore, the sorted keys would be:
+
+   * five
+   * four
+   * one
+   * six
+   * three
+   * two
+
+Now you can see, the highest value is "two" and the lowest value is "five".
+
+Have a look at the documentation for NavigableMap interface. The documentation says that the lowerKey(Object) method returns the greatest key strictly less than the given key, or null if there is no such key. As we are doing this evaluation with the lowest value "five", it is clear that there is no value lower than "five". Therefore, this method returns 'null' in this case.
+
+Finally, we attempted to execute the toString() method on each element of this 'ob' array. As it reaches the array element with null value, it will throw a NullPointerException as we try to invoke a method on a null object.
+
+As a practice, remove the .toString() invocation from that statement and try to recompile and execute. Can you guess the result now?
+Click here to discuss anything about this question with a dedicated tutor.
+
+
+
+------------------------------------------------------------------------------------------------------
+
+
+Given the following code fragment:
+  public class Lanka{
+    public Lanka(Object o){
+      System.out.println("Object In");
+    }
+    public Lanka(Integer o){
+      System.out.println("Integer In");
+    }
+    public Lanka(Number o){
+      System.out.println("Number In");
+    }
+    public static void main(String args[]){
+      new Lanka(null);
+    }
+  }
+  
+  
+  Explanation...
+  
+  
+  Integer is-a Number, and Number is-a(n) Object.
+
+Out of these three classes, the super-most class is Object, and the sub-most class is Integer. When we pass a "null" to an overloaded constructor or a method, the constructor or the method, which can take the sub-most type will be invoked.
+
+However, take notes that the above concept is valid only if those three classes are in the same hierarchy. If we had another constructor outside this hierarchy root,.. just like below...
+
+          public Lanka(String o){
+               System.out.println("Number In");
+          }
+
+...a compile time error would have been raised.
+
+Keep this in mind for the exam!
+Click here to discuss anything about this question with a dedicated tutor.
+
+
+------------------------------------------------------------------------------------------------------
+
+
+class A{
+
+  public static class GreenHouse{
+    int x=1;
+  }
+
+  public GreenHouse gh;
+
+  A(GreenHouse gh){
+    this.gh=gh;
+  }
+
+  public GreenHouse getGreenHouse(){
+    return gh;
+  }
+
+}
+
+public class B{
+
+  public static class GreenHouse{
+    int x=2;
+  }
+
+  public static void main(String args[]){
+    A a=new A(new GreenHouse());
+    System.out.println(a.getGreenHouse().x);
+  }
+
+}
+
+
+
+Explanation...
+
+
+There are two inner classes with the same name. However, that is not a problem, because these two inner classes are in two different outer classes.
+
+If you have mentioned "GreenHouse" anywhere inside the class A, it can be written as "A.GreenHouse".
+If you have mentioned "GreenHouse" anywhere inside the class B, it can be written as "B.GreenHouse".
+
+Therefore the constructor A(GreenHouse) written inside the class A, is equivalent to A(A.GreenHouse).
+
+Inside the class B, the constructor invocating statement
+        A a=new A(new GreenHouse());
+is equivalent to
+        A a=new A(new B.GreenHouse());
+
+Therefore, you are attempting to pass an instance of B.GreenHouse, to the constructor A(A.GreenHouse). This is incorrect, because B.GreenHouse is-not-a(n) A.GreenHouse.
+Click here to discuss anything about this question with a dedicated tutor.
+
+
+------------------------------------------------------------------------------------------------------
+
+which of the statements are true:
+
+Explanation...
+
+
+Answer-B is wrong, because an anonymous inner class can have only one-public-implicit constructor. You can't define a constructor explicitly. For an example,
+
+  TreeSet<String> ar=new TreeSet<String>(Collections.reverseOrder()){
+  };
+
+In this program, you are passing the Comparator object that returns from Collections.reverseOrder(), to... to... where?
+
+Yes, you are passing it to the super class (TreeSet class) constructor. It is same as to writing "super(Collections.reverseOrder());" But you can't use this super-calling statement inside the anonymous inner class, because anonymous inner class cannot have explicit constructors.
+
+
+Answer-D is wrong, because an anonymous inner class CAN be declared outside a method or constructor. Wait! Where... how...?
+Yes, an anonymous inner class can be declared in an initialization block! For an example,
+
+  class A{
+       {
+            Thread t=new Thread(){
+                 public void run(){}
+            };
+       }
+  }
+Click here to discuss anything about this question with a dedicated tutor.
+
+
+
+------------------------------------------------------------------------------------------------------
+
+
+class XMethod{
+
+  static{
+    System.out.print("XMethod ");
+  }
+
+  public static XMethod getMe(){
+    System.out.print(1);
+    return new XMethod();
+  }
+
+  public int doThis(){
+    System.out.print(2);
+    return 3;
+  }
+
+}
+
+public class XMDemo{	
+
+  public static void main(String args[]){
+    System.out.print(XMethod.getMe().doThis());
+  }
+
+}
+
+
+Explanation...
+
+When it attempts to access the class "XMethod" at the first place, the class loader executes all static initialization blocks in the class XMethod. And then, the getMe() method has been called.
+
+The getMe() method prints "1" on the screen, and returns a new instance of XMethod.
+
+Finally, the doThis() method of the new instance has been invoked. The method doThis() prints "2", and returns the int value 3 as an argument to the System.out.print method.
+Click here to discuss anything about this question with a dedicated tutor.
+
+
+------------------------------------------------------------------------------------------------------
+
+
+Which are true.
+
+
+Explanation...
+
+
+
+LinkedHashSet is an ordered Set, but the methods of it are not thread-safed.
+
+Vector is an ordered List that provides thread-safed access. Therefore the Answer-B is correct. Because it has to synchronize on monitors to provide thread-safe access, Vector provides the slowest iteration speed compared to other List classes. Therefore Answer-D is wrong.
+
+HashSet provides a great performance than the LinkedHashSet, for inserting data. However, the LinkedHashSet provides a faster performance than the HashSet, when it comes to do iterations through elements. Such performance is applicable because LinkedHashSet have double-links between elements. Therefore Answer-C also correct.
+
+Answer-E and Answer-F are wrong, because the given is-a relationships are not available.
+Click here to discuss anything about this question with a dedicated tutor.
+
+
+------------------------------------------------------------------------------------------------------
+
+
+Given the following code fragment:
+    20.
+    21.   Locale lc=new Locale("gb");
+    22.   System.out.println(lc.getDisplayCountry());
+    23.
+What will be the result of attempting to compile and run the given code fragment?
+(The abbreviation "gb", which stands for Great Britain, is internationally used to indicate the country "United Kingdom")
+ACompile time error.
+BRun time error.
+CPrints "United Kingdom"
+DPrints "UK"
+EPrints "English"
+FPrints nothing.
+GPrints the default country.
+HResult is unpredictable.
+
+
+
+Explanation...
+
+
+
+The first argument you pass to the Locale(String) constructor, should be the 'language'. If you want to mention a country, you have to pass the country-ISO-code, as the SECOND argument. Therefore, the Locale in this given program has no country.
+
+The way to mention both language and the country is as below:
+
+        Locale lc=new Locale("en","gb");
+
+Where,
+
+    en="English" (The language)
+    gb="Grait Britain" (The country)
+Click here to discuss anything about this question with a dedicated tutor.
+
+
+
+------------------------------------------------------------------------------------------------------
+
+
+
+
+  15. 
+  16.  int i=(byte)4;
+  17.  byte b=(byte)i;
+  18.  short s=b;
+  19.  char c=(char)s;
+  20.  java.lang.Character c2=(Byte)(new java.lang.Byte("4"));
+  21.  char c3=new Character('A').charValue();
+  22.  byte b2=new java.lang.Byte(4);
+  23.  java.lang.Float ft=Float.valueOf("45T").floatValue();
+  24.  java.lang.Float ft2=Float.parseFloat("45T").floatValue("32F");
+  25.
+
+			
+			
+			
+			
+	Explanation...
+	
+	
+	
+	Line-20 causes a compile time error, because the casting attempt from Byte to Character can neither be done implicitly nor explicitly.
+
+Line-22 gives a compile time error, because the Byte(-) constructor does not has an int parameter.
+
+Line-24 gives a compile time error, because the method Float.parseFloat(String) returns a float primitive value - not a Float wrapper object. You cannot call a method 'of' a primitive value. The compiler fails to compile saying "float cannot be dereferenced".
+Click here to discuss anything about this question with a dedicated tutor.
+
+
+
+------------------------------------------------------------------------------------------------------
+
+
+
+public class TWorks extends Thread{
+  public void run(){
+    synchronized(new String("a")){
+      System.out.print("-A-");
+      System.out.print("-B-");
+      System.out.print("-C-");
+    }
+  }
+  public static void main(String args[]){
+    TWorks tw=new TWorks();
+    Thread rb1=new Thread(tw);
+    Thread rb2=new Thread(tw);
+    rb1.start();
+    rb2.start();
+  }
+}
+
+		
+Explanation...
+
+
+As the program runs, two threads will concurrently access the same run() method on the same "tw" object.
+
+When you see this type of question in the real exam, do NOT panic thinking that the synchronized keyword will definitely prevent the concurrent access problem.
+
+In this program, the expression right after the 'synchronized' keyword creates a NEW String object every time it gets called, because of the keyword "new".
+
+Therefore the lock of the first instance of the given String will be owned by the first thread; and the lock of the second instance of the given String will be owned by the second thread.
+
+The above scenario will not prevent the concurrent access problem. So, the result is unpredictable.
+Click here to discuss anything about this question with a dedicated tutor.
+
+
+------------------------------------------------------------------------------------------------------
+
+
+
+  public class Star{
+
+    static int a=0;
+    volatile int b=1;
+
+    public static void main(String args[]){
+      new Star().a=2;
+      new Star().b=3;
+      new Star().a=4;
+      new Star().b=5;
+      System.out.print(new Star().a + new Star().b);
+    }
+  }
+
+  
+  
+  Explanation...
+  
+  
+  
+  The volatile keyword is not in the exam. But for the SCJP/OCPJP examination, you MUST know that volatile keyword can be used on variable declaration, and the combination "final volatile" is invalid. That's all what you are expected to know about the volatile keyword.
+
+This program, on the other hand, is not about the volatile keyword. The same result will be produced even if you removed this "volatile" use. This program is about static attributes and nonstatic attributes. What you are expected to know here is...
+
+1. Multiple objects may share the same STATIC variable.
+2. Each object of a class has a separate copy of nonstatic variables.
+
+In other words, static variables are NOT dependent on instances. Nonstatic variables are instances-dependent.
+
+In this program, 'a' is a static variable. Therefore the statement "new Star().a=4;" changes the value of the static variable 'a' to '4'.
+
+The statement "System.out.print(new Star().a + new Star().b);" creates two new Star objects. The expression "new Start().a" retrieves the pre-existed value from the static variable 'a', which is 4. The expression "new Start().b" returns the new value from the nonstatic variable 'b', which is 1. The arithmetical addition of 1+4 (=5) will so be printed.
+Click here to discuss anything about this question with a dedicated tutor.
+
+
+
+------------------------------------------------------------------------------------------------------
+
+
+
+  public class Devk{
+    public static void tMeth(Integer... i){
+      System.out.print("A");
+    }
+    public static void tMeth(int... i){
+      System.out.print("B");
+    }
+    public static void main(String args[]){
+      tMeth(Integer.valueOf("7"));
+    }
+  }
+
+		
+		
+	Explanation...
+	
+	
+	When there are two overloaded versions of a method as one taking primitive var-args and the other taking wrapper var-args, you can't call it passing any primitive or wrapper value.
+Click here to discuss anything about this question with a dedicated tutor.
+
+
+------------------------------------------------------------------------------------------------------
+
+
+
+ public class AnotherExam{
+    static boolean b;
+    public static void main(String args[]){
+      if(b){
+        System.out.print("A");
+        System.out.print(args[0]);
+        System.out.print("B");
+      }else{
+        System.out.print("C");
+        b=true;
+        main(new String[]{"D"});
+        System.out.print("E");
+      }
+    }	
+  }
+
+			
+			
+			
+	Explanation...
+	
+	
+	
+	The main method will be called twice in this program.
+
+When the first time the program enters the main method (as how normal execution flows), the boolean variable 'b' has 'false' - the default value of boolean. 
+
+Then the 'else' part will be executed, till the statement "main(new String[]{"D"});".which calls to the main method again, and at that time the 'if' condition will be evaluated to true. After printing "A", "D" and "B", the statement System.out.print("E"); also will be executed.
+Click here to discuss anything about this question with a dedicated tutor.
+
+
+------------------------------------------------------------------------------------------------------
+
+
+Given the following code fragment:
+    13. 
+    14.  List<Object[]> d=new ArrayList<Object[]>();
+    15.  d.add({"A"});
+    16.  d.add(new Object[]);
+    17.  d.add(new Object[1]);
+    18.  d.add(new Object[]{"A"});
+    19.  d.add(new Object[1]{"A"});
+    20.  d.add("A".split("B"));
+    21.
+	
+	
+	
+	Explanation...
+	
+	
+	
+	
+	Line-15 contains a syntax error as you can't pass an array object in that way. It should be passed as,
+        d.add(new String[]{"A"});
+
+Line-16 gives a compile time error, because array dimension is unknown. To be able to compile, the array elements must be specified within curly-brackets; or the length of the array should be specified within square-brackets as shown below. You have to use one of the following options:
+
+  *  d.add(new Object[]{new A(), new B(), new Date()}); //Specifying elements
+  *  d.add(new Object[12]); //Specifying number of elements
+
+Line-19 gives a compile time error, because you can never specify the number of elements, if array elements are specified within curly-brackets.
+Click here to discuss anything about this question with a dedicated tutor.
+
+
+
+
+------------------------------------------------------------------------------------------------------
+
+
+
+Which of following compile without error...
+
+
+Explanation...
+
+
+The getInstance(Locale) is available only in  Calendar and NumberFormat classes. 
+
+Note that the getInstance(Locale) method is NOT available in DateFormat class, even though it is available in the NumberFormat class.
+
+The getInstance() method (the parameter-less version) is available in both DateFormat and NumberFormat classes.
+Click here to discuss anything about this question with a dedicated tutor.
+
+
+------------------------------------------------------------------------------------------------------
+
+
+  public class AnoThread{
+    public static void main(String args[])throws Exception{
+      synchronized("A"){
+        Runnable rb=new Runnable(){
+          public void run(){
+            System.out.print("Sys");
+          }
+        };
+        rb.start();
+        System.out.print("M");
+      }
+    }
+  }
+
+		
+		
+		
+	Explanation...
+	
+	
+	Runnable is an interface. The one and only method prototype declared in this interface is "public void run()". Because of that reason, you can never call .start() method on a Runnable reference.
+
+The correct answer is "Compilation fails".
+Click here to discuss anything about this question with a dedicated tutor.
+
+
+
+------------------------------------------------------------------------------------------------------
+
+
+
+  2. import static java.lang.Long.*;
+  3.
+  4. public class Fex{
+  5.  public static void main(String args[]){
+  6.    getIt(MAX_VALUE);
+  7.  }
+  8.
+  9.  static void getIt(Number... hg){
+  10.    System.out.println(hg instanceof Object);
+  11.  }
+  12. }
+
+		
+		
+	Explanation...
+	
+	
+	Answer-B and Answer-D are wrong, because if done, you will not be able to pass the 'long' value MAX_VALUE, to the methods getIt(Number[]) and getIt(Object[]), which only takes array objects. Line-6 would generate a compile time error, in this case.
+
+However, Answer-C and Answer-E are correct, because of autoboxing.
+
+Answer-F and Answer-G are wrong, because if done, the variable "MAX_VALUE" exists in both classes Long and Integer. Then, the compiler will not be able to understand which variable it refers by "MAX_VALUE" at line-6.
+
+Answer-I is correct even though it is not a "static import" statement. This statement looks like it is attempting to access static contents of java.lang.Integer. You might think that this is wrong because it is not a static import statement. However, it is correct, because with this statement you can access static inner classes of java.lang.Integer, despite the fact that there isn't any.
+
+Confused at Answer-I ? It is take a look at the following example, and try this yourself:
+(Note that you have to compile Cls2.java before compiling Cls1.java)
+
+//Cls2.java
+
+     package cof2;
+     
+     public class Cls2{
+     
+          public static class Cls2Inner{
+     
+               public void printMe(){
+                    System.out.println("Cof2Inner");
+               }
+     
+          }
+     
+     }
+     
+-------------------------------------------------------
+
+//Cls1.java
+
+     package cof1;
+     import cof2.Cls2.*;
+     
+     public class Cls1{
+
+          public static void main(String args[]){
+               new Cls2Inner().printMe(); // How cool this?
+          }
+
+     }
+
+-------------------------------------------------------
+
+The statement...
+        new Cls2Inner().printMe(); 
+... in Cls1, instantiates Cls2Inner without defining Cls2 as...
+       new Cls2.Cls2Inner().printMe();
+? because you can access the static inner classes of Cls2, without having to specify Cls2.
+
+However, keep in mind that you can NOT access top-level methods nor top-level variables of Cls2 using this syntax of importing. The only thing you can use is static inner classes.
+Click here to discuss anything about this question with a dedicated tutor.
+
+
+
+
+
+------------------------------------------------------------------------------------------------------
+
+
+Given the following code fragment:
+  public class ApAssert{
+    public static void main(String args[]){
+      assert args.length==0;
+      evaluate(args[0],false);
+    }
+    private static void evaluate(String s, boolean flag){
+      int i=Integer.parseInt(s.trim());
+      assert;
+      assert flag=false;
+      System.out.print("Received Status: "+flag);
+      i--;
+      assert i-- <=0;
+    }
+  }
+How many assert statements are appropriate in the given program?
+A0
+B1
+C2
+D3
+E4
+
+
+
+Explanation...
+
+
+There are four assert statements used in this program.
+
+The statement "assert;" which has no expression is invalid. All other assert statements are valid.
+
+The question was not about validity/invalidity of assert statements - it was about "appropriate" usage of assertions..
+
+The statement "assert args.length==0;" is NOT appropriate, because of the rule:
+"Using assertions to evaluate arguments of a PUBLIC method is NOT appropriate".
+
+The statement "assert flag=false;" is NOT appropriate, because?
+"Using assertions that can cause side effects, is NOT appropriate ".
+(Note that the expression flag=false does an assignment, not a conditional evaluation. Therefore, it causes a side-effect).
+
+The statement "assert i-- <=0;" also NOT appropriate because of the same reason as above.
+
+As there is no correct use of asserts used in this program, the correct answer is Answer-A
+Click here to discuss anything about this question with a dedicated tutor.
+
+
+------------------------------------------------------------------------------------------------------
+
+
+
+  24. public static void main(String... args){
+  25.   String i;
+  26.   if (i==null){
+  27.     System.out.print("A");
+  28.   }else{
+  29.     System.out.print("B");
+  30.     i="A";
+  31.     main("A","B");
+  32.   }
+  33. }
+
+			
+	Explanation...
+	
+	
+	
+	At the line-25, the local variable "i" has been declared without initialization. You can't use a local variable which has not been initialized, even in a conditional evaluation. Therefore the statement at line-26 produces a compile-time error.
+Click here to discuss anything about this question with a dedicated tutor.
+
+
+------------------------------------------------------------------------------------------------------
+
+
+
+What does a FileReader.read return...
+
+
+Explanation...
+
+
+Many overloaded version of the method "read" is inherited to FileReader, from java.io.InputStreamReader, and java.io.Reader.
+
+These overloaded methods were:
+* InputStreamReader.read()
+* InputStreamReader.read(char[], int, int)
+* Reader.read(char[])
+* Reader.read(java.nio.CharBuffer)
+
+Don't be panic. For the OCPJP exams, you are only expected to know about Reader.read(char[]). This method can read characters into a char array. The method returns the number of characters read, or -1 if the end of the stream has been reached.
+
+The return type for all of the above methods is 'int'
+Click here to discuss anything about this question with a dedicated tutor.
+
+
+
+
+------------------------------------------------------------------------------------------------------
+
+
+
+Not a java keyWord?
+
+
+Expolanation...
+
+
+For the SCJP/OCPJP exam, you have to know that "const" and "goto" are reserved words in the Java language, even though they are no longer available as functional keywords.
+
+Answer G is correct because "instanceOf" is NOT a Java keyword. The similar-looking keyword available is "instanceof"; not "instanceOf". (check the case of 'O').
+Click here to discuss anything about this question with a dedicated tutor.
+
+
+
+------------------------------------------------------------------------------------------------------
+
+
+	
+public class Fractal{
+
+  public static void main(String args[]){
+    Fractal ft=new SubFractal();
+    String s=(Fractal)ft.getOb().getMsg();
+    System.out.print(s);	
+  }
+
+  public Object getOb(){
+    return new Fractal();
+  }
+
+  public String getMsg(){
+    return "SuperStar";
+  }
+
+}
+
+
+class SubFractal extends Fractal{
+
+  public Fractal getOb(){
+    return new Fractal();
+  }
+
+  public String getMsg(){
+    return "SubStar";
+  }
+
+}
+
+		
+		
+	Explanation...
+	
+	
+	
+	The statement,
+  " String s=(Fractal)ft.getOb().getMsg();"
+is the only important statement in this program.
+
+We know that the method ft.getOb() returns a Fractal object, with a Fractal reference at the runtime, because of the concept of runtime-polymorphism.
+
+Keep it in the mind that the compiler doesn't  know anything about runtime-polymorphism. Compiler just checks only on reference types. The compiler can see that the reference of the object "ft" is Fractal, and therefore the method getOb() in the Fractal class will be 'checked'. The compiler also discovers that the return type of the method getOb() in the Fractal class is "Object". Therefore the compiler will not allow you to invoke the getMsg() method because there is no getMsg() method defined in the Object class.
+
+We can however make it to compile with an explicit down-case from Object to Fractal. Yes, it 'looks' like we have done a proper down cast here, but it does not work in the way it should be because of the operator precedence.
+Click here to discuss anything about this question with a dedicated tutor.
+
+
+------------------------------------------------------------------------------------------------------
+
+
+
+public class Fex2{
+    public static void main(String args[]){
+      byte b1=12;
+      Byte B1=new Byte(b1);
+      short s1=6;
+      Short S1=new Short(s1);
+      int i1=7;
+      Integer I1=new Integer(i1);
+      Long l1=new Long(45L);
+      Number nm=new Short("4");
+  
+      capture(b1);
+      capture(B1);
+      capture(s1);
+      capture(s1+=20000);
+      capture(S1);
+      capture(nm);
+      capture(I1.intValue());
+      capture(Short.valueOf("110110",2));
+      capture(Short.parseShort("110110",2));
+      capture();
+    }
+  
+    static void capture(short x){
+      System.out.print("A");
+    }
+    static void capture(int x){
+      System.out.print("B");
+    }
+    static void capture(long x){
+      System.out.print("C");
+    }
+    static void capture(Short x){
+      System.out.print("D");
+    }
+    static void capture(Integer x){
+      System.out.print("E");
+    }
+    static void capture(Long... x){
+      System.out.print("F");
+    }
+    static void capture(Number x){
+      System.out.print("G");
+    }
+  }
+
+  
+  
+  Explanation...
+  
+  
+  
+  This program uses overloaded versions of capture(-) method. The overloaded versions are: capture(short), capture(int), capture(long), capture(Short), capture(Integer), capture(Long...), and capture(Number)
+
+The statement,
+        capture(b1);  //where b1 is a byte value
+calls the method capture(byte), if available. As the version capture(byte) is not available, the nearest match, capture(short) will be called.
+
+The statement,
+        capture(B1);  //where B1 is a Byte value
+calls the method capture(Byte), if available. Because the version capture(Byte) is not available, the nearest match, capture(Number) will be called, because Byte is-a Number
+
+The statement,
+        capture(s1);  //where s1 is a short value
+calls the method capture(short), if available. Yes, it is available, so the method capture(short) will be called.
+
+The statement,
+        capture(s1+=20000);  //where s1 is a short value
+calls the method capture(short), if available, because the expression "s1+=20000" returns a "short" value, even though "20000" is a value larger than what byte can hold (Keep this in mind for the exam). Yes, the overloaded version capture(short) is available. Therefore, the method capture(short) will be called.
+
+The statement,
+        capture(S1);  //where S1 is a Byte value
+calls the method capture(Short), if available.  Yes, it is available. Therefore the method capture(Short) will be called.
+
+The statement,
+        capture(nm); //where nm is a Short value with Number reference
+calls the method capture(Number), even though capture(Short) is available! Note that the method which should be invoked is dependent on the reference type of the object being passed - not by the type of the actual object. This is because it is compiler who determines which overloaded method should be invoked at the runtime, and the  instantiation value of a reference variable cannot be detected at compile time.
+
+The reference type of the variable 'nm' is "Number". Therefore, the method capture(Number) will be called. Simply, keep in mind that overloading deals only with reference-types.
+
+The statement,
+        capture(I1.intValue()); //where I1 is an Integer value
+calls the method capture(int), if available, because the method Integer.intValue() returns an 'int' primitive value that representing the value of the given Integer Wrapper. Yes, the method capture(int) is available. Therefore the method capture(int) will be called.
+
+The statement,
+        capture(Short.valueOf("110110",2)); 
+calls the method capture(Short), if available, because the method Short.valueOf(String,int) returns a Short Wrapper instance that representing the value of the given argument. Yes, the method capture(Short) is available. Therefore the method capture(Short) will be called.
+
+The statement,
+        capture(Short.parseShort("110110",2));
+calls the method capture(short), if available, because the method Short.parseInt(String,int) returns a 'short' primitive value that represents the value of the given argument. Yes, the method capture(short) is available. Therefore the method capture(int) will be called.
+
+The statement,
+        capture();
+calls the method capture(), if available. However, it isn't available. Therefore, the method capture(Long...) will be called, because passing an argument to var-arg parameter is NOT mandatory. A zero length array will be passed to the method.
+Click here to discuss anything about this question with a dedicated tutor.
+
+
+
+------------------------------------------------------------------------------------------------------
+
+
+
+ import java.util.regex.*;
+  public class Mtpr{
+    public static void main(String args[]){
+      Matcher co=Matcher.compile("Sunday");
+      Pattern se=co.pattern("Monday Tuesday Wednesday");
+      while(se.find())
+        System.out.print(se.group());
+    }
+  }
+
+	
+	
+	
+	Explanation...
+	
+	
+	Practice Alert: If your answer was  wrong, you have to practice more of Pattern and Matcher classes.
+
+The given program has so many glitches. The correct program should have been like this...
+
+     import java.util.regex.*;
+     class Mtpr{
+          public static void main(String args[]){
+               Pattern co=Pattern.compile("Sunday");
+               Matcher se=co.matcher("Monday Tuesday Wednesday");
+               while(se.find())
+                    System.out.print(se.group());
+          }
+     }
+Click here to discuss anything about this question with a dedicated tutor.
+
+
+
+------------------------------------------------------------------------------------------------------
+
+
+Refer Java Docs for String StringBuffer StringBuilder...
+
+
+------------------------------------------------------------------------------------------------------
+
+
+public class FCilin{
+
+  public static void main(String args[]) throws Throwable {
+    try{
+      getMe();
+    }catch(ArithmeticException ae){
+      System.out.print(1);
+    }catch(ArrayIndexOutOfBoundsException ae){
+      System.out.print(2);
+    }catch(NullPointerException ae){
+      System.out.print(3);
+    }catch(RuntimeException ae){
+      System.out.print(4);
+    }catch(Exception ae){
+      System.out.print(5);
+    }
+  }
+
+  public static void getMe()throws ArithmeticException{
+    if(true) throw new NullPointerException();
+    throw new ArrayIndexOutOfBoundsException();
+  }
+
+}
+
+			
+			
+			
+	Explanation...
+	
+	
+	
+	
+	Inside the getMe() method, the statement "throw new NullPointerException();" throws a NullPointerException. Then the statement "throw new ArrayIndexOutOfBoundsException();" will not execute.
+
+The thrown exception will be caught by the catch(NullPointerException) block, inside the main method.
+Click here to discuss anything about this question with a dedicated tutor.
+
+
+
+------------------------------------------------------------------------------------------------------
+
+
+
+Given the following code fragment:
+  17.
+  18. String s="A";
+  19. java.lang.StringBuilder sb=new java.lang.StringBuilder("B");
+  20. Object ob=s+sb;
+  21. System.out.println((String)(ob));
+  22.
+Assuming no class was explicitly imported, which two of the following statements are true about the given code fragment?
+APrints "AB"
+BCompile time error at line-19 - neither StringBuilder nor StringBuffer available in java.lang package.
+CCompile time error at line-20 - the operator "+" cannot be used to concat a String with a StringBuilder.
+DCompile time error at line-20 - the expression "s+sb" cannot be assigned to an Object type variable.
+ECompile time error at line-21 - the expression "ob" cannot be converted to a String.
+FClassCastException will be thrown by line-21 - the expression "ob" cannot be converted to a String.
+GStringBuilder is faster than StringBuffer.
+HStringBuilder is slower than StringBuffer.
+
+
+
+
+Explanation...
+
+
+Both StringBuilder and StringBuffer are available in the package "java.lang", so it doesn't require importing other packages. Answer-B is wrong because of that.
+
+The operator '+' can be used to concat 'any' object with a String value. Take a look at the following legal and illegal expressions.
+
+* Object ob = s + sb;  //Legal
+* Object ob = sb + s;  //Legal
+* Object ob = 4 + 3; //Legal (because of auto boxing)
+* Object ob = 4 + s; //Legal
+* Object ob = s + 4; //Legal
+* Object ob = new java.util.Date() + s; //Legal
+* Object ob = s + new java.util.Date(); //Legal
+* Object ob = s + sb + sb; // Legal. Same as to   (s+sb)+sb;
+* Object ob = sb + s + sb; //Legal.  Same as to   (sb+s)+sb;
+
+* Object ob = new java.util.Date() + new java.util.Date(); // Illegal (No String)
+* Object ob = sb + sb;  //Illegal (No String)
+* Object ob = sb + sb + s; //Illegal. Same as to   (sb+sb)+s;
+
+Answer-C is wrong, because of this.
+
+The return type of the expression s+sb is a String, because, upon evaluation, it invokes the method toString() of the object 'sb', and the returned string will be concatanated with 's'. Remember, if there was at least one 'String' operand for a given '+' operator, the return value of the expression will also be a String. Because a String value CAN be assigned to an Object type reference, Answer-D is wrong.
+
+Answer-E is wrong, because you can do an explicit cast to convert an java.lang.Object reference to a String reference. Note that ou can convert an Object reference to ANY reference type (including array references).
+
+Answer-F is wrong, because the variable 'ob' contains a String value.
+
+Unlike StringBuilder, StringBuffer provides a thread-safe access by synchronizing its methods. Therefore, StringBuffer is slower than StringBuilder.
+Click here to discuss anything about this question with a dedicated tutor.
+
+
+
+------------------------------------------------------------------------------------------------------
+
+
+
+  16.  TreeSet<String> mts= new TreeSet<String>();
+  17.  mts.add("one");
+  18.  mts.add("two");
+  19.  mts.add("three");
+  20.  mts.add("four");
+  21.  mts.add("five");
+  22.
+  23.  NavigableSet<String> tas = mts.tailSet("three");
+  24.  for(String st:tas){
+  25.    System.out.print(st+" ");
+  26.  }
+
+			
+			
+	Explanation...
+	
+	
+	ompilation fails at the line 23.
+
+In Java SE 1.6 API, there are two overloaded versions of tailSet(-) vailable:
+     
+     1.  tailSet(Object)
+     2.  tailSet(Object, boolean)
+
+The first method tailSet(Object) is defined even in Java 1.5. The return type of this method is "SortedSet".  On the other hand, the second method tailSet(Object, boolean) is newly introduced with the Java 1.6. The return type of this method is "NavigableSet".
+
+In this program, we are using the first method - tailSet(Object). As I described above, the return type of this method is SortedSet. Since NavigableSet is not a super-class of SortedSet, we can't use NavigableSet as the reference type here.
+
+This program would work fine, if another boolean argument was passed to the tailSet(-) method as below:
+NavigableSet<String> tas = mts.tailSet("three", true);
+
+Can you guess the result now?
+Click here to discuss anything about this question with a dedicated tutor.
+
+
+------------------------------------------------------------------------------------------------------
+
+
+
+Given the following code fragment:
+  18. String s="Java";
+  19. s.concat("Core");
+  20. StringBuffer sb=new StringBuffer(s);
+  21. sb.append(true);
+  22. s=sb.toString();
+  23. System.out.print(s);
+What will be the result of the given code fragment?
+APrints "JavaCore"
+BPrints "Java"
+CPrints "null"
+DPrints "JavaCoretrue"
+EPrints "Javatrue"
+FPrints "nulltrue"
+GPrints "true"
+HPrints nothing.
+ICompilation fails.
+
+
+
+Explanation....
+
+
+
+Strings are immutable, so the statement at line-19 will not change the existing value in the variable 's'.
+
+StringBuffer, on the other hand, is not immutable. Values in StringBuffer objects can be changed. The append(-) method can take any type of argument, and it will be appended to the existing StringBuffer object.
+Click here to discuss anything about this question with a dedicated tutor.
+
+
+
+------------------------------------------------------------------------------------------------------
+
+
+public class STClass{
+
+  static int i=0;
+
+  public static int getRef(){
+    return i++;
+  }
+
+  public static class Tash{
+    static int p=0;
+    public static int getRef(){
+      return i+p++;
+    }
+  }
+
+  public static void main(String... argv){
+    int a1=new STClass().getRef();
+    int a2=new STClass().getRef();
+    int a3=new STClass().new Tash().getRef();
+    int a4=new STClass().new Tash().getRef();
+    System.out.print(a1+":"+a2+":"+a3+":"+a4);
+  }
+
+}
+
+Explanation...
+
+
+
+This an important point to take notes on.
+
+A static inner class can be instantiated, without having an instance of the outer class.
+
+The important point is...
+A static inner class can NOT be instantiated through an instance of the outer class.
+Click here to discuss anything about this question with a dedicated tutor.
+
+
+
+------------------------------------------------------------------------------------------------------
+
+
+Given the following code fragment:
+abstract class A<K extends Number>{
+  //Insert Here
+}
+
+
+Explanation...
+
+
+You will face with number of questions about generics in the real examination.
+
+Answer-B is completely wrong, because the generic declaration of a method should be specified before the return type.
+
+Answer-E also is wrong. When you declare a generic type of a method as same as to the generic type declare for the class, the class generic type may be shadowed by the method's generic type. Therefore, for this method, K is just a new generic type. Then the expression A<K> in this method declaration will be rejected by the compiler, because new generic type K fails the conditional evaluation <K extends Number> at the class declaration.
+
+Answer-G also is wrong, because the keyword "super" is not valid at the generic declaration part for a method.
+
+Answer-H is wrong, because Character is-not-a Number. So the compiler knows that any super class of the Character class will not be accepted by the conditional evaluation <K extends Number> at the class declaration.
+
+Answer-I also wrong, because of the same reason described above.
+Click here to discuss anything about this question with a dedicated tutor.
+
+
+
+------------------------------------------------------------------------------------------------------
+
+
+Which is a valid statement.
+
+Explanation...
+
+Answer-A is wrong, because the length of the array cannot be specified, when curly brackets are used.
+
+Answer-B is wrong, because an array cannot be constructed without having a reference.
+
+Answer-D is illegal, because it attempts to access two-dimensional object from a single-dimensional array.
+
+Answer-E is syntaxly incorrect.
+Click here to discuss anything about this question with a dedicated tutor.
+
+------------------------------------------------------------------------------------------------------
+
+
+public class Atr implements Runnable{
+
+  static volatile int x=0;
+
+  public void run(){
+    try{
+      switch(x){
+        case 0: go1();
+        case 1: new Atr().go2();
+        case 2: new Atr().go3();
+      }
+    }catch(Exception e){
+    }
+  }
+
+  public static synchronized void go1()throws Exception{
+    System.out.print("GoIn ");
+    Thread.currentThread().join();
+    System.out.print("GoOut ");
+  }
+
+  public static synchronized void go2()throws Exception{
+    System.out.print("Go2In ");
+    Thread.currentThread().join();
+    System.out.print("Go2Out ");
+  }
+
+  public synchronized void go3()throws Exception{
+    System.out.print("Go3In ");
+    Thread.currentThread().join();
+    System.out.print("Go3Out ");
+  }
+
+  public static void main(String args[])throws Exception{
+    new Thread(new Atr()).start();
+    Thread.sleep(1000);
+    x=1; new Thread(new Atr()).start();
+    Thread.sleep(1000);
+    x=2; new Thread(new Atr()).start();
+  }
+
+}
+
+
+
+Explanation...
+
+
+When "x=0", the first thread starts its execution from the run() method, which in turn calls the method go1(). The static method go1() is synchronized. Therefore the monitor lock of the template of class Atr will be owned by the first thread.
+In the method go1(), the statement "Thread.currentThread().join();" blocks the execution of the current thread by joining it to the same thread. The thread will not continue, and the monitor lock will not be released.
+
+When "x=1", the second thread starts its execution from run() method, which in turn calls the method go2(). The static method go2() is synchronized too. The second thread can NOT enter to the method go2(), until monitor lock of the template is released by the first thread. On the other hand, that monitor lock will never be released by the first thread, and the second thread keeps waiting forever.
+
+When "x=2", a third thread starts it's execution from run() method, which in turn calls the method go3(). The non-static method go3() is synchronized. Therefore the monitor lock of the "current object" of class Atr will be owned by the third thread.
+In the method go3(), the statement "Thread.currentThread().join();" blocks the execution of the current thread, by joining the current thread to the same thread. The thread will not continue, and the monitor lock will not be released.
+
+The program will never terminate, even after 'main' thread is stopped, because other three threads are non-daemon threads and they are still in the working state.
+Click here to discuss anything about this question with a dedicated tutor.
+
+
+------------------------------------------------------------------------------------------------------
+
+
+ 14. class A{}
+  15. class B extends A{}
+  16. class C extends B{
+  17.   public static void main(String args[]){
+  18.     List<? super B> ty=new ArrayList<A>();
+  19.     ty.add(new A());
+  20.     ty.add(new B());
+  21.     ty.add(new C());
+  22.   }
+  23. }
+
+  
+  Explanation...
+  
+  
+  As per how classes are declarated at line-14, line-15, and line-16,...
+      * C is-a B
+      * B is-a(n) A
+      * Therefore, C is-a(n) A
+
+The reference type of "ty" is "List<? super B>"
+What does this generic type say? Yes it implies "any super class of B". However, be careful, and do NOT get it in a way that you can pass "any super class of B" to a method of 'ty', which is not what it means.
+
+The real mean of the above generic reference type is "the instantiation part can be done with any super class of B as its generic type".
+
+That means following statements are legal:
+     * List<? super B> ty=new ArrayList<B>();
+     * List<? super B> ty=new ArrayList<A>();
+     * List<? super B> ty=new ArrayList<Object>();
+
+because, those A, B and Object are super types (or same) of B.
+
+Now the question is, what can you pass to the add method?
+
+The compiler doesn't know what will be the instantiation generic type (right side) at the compilation time. It can be B, A, or even java.lang.Object as shown above.
+
+The key point you have to carefully understand is the COMPILER doesn't know what exact generic there will be at the runtime. Because the compiler deals only with reference types, it only  knows that the reference type says <? Super B>, which in turns mean the generic type of the isntantation part can be anything from B, A, Object, or any other super-type of B.
+
+To understand why the compiler works in this way, imagine a scenario in which you assign so many instantiations for a one reference within a loop, or in a nested if condition. The compiler won't be able to identify the instantiation type without actually running it. To make it further clarified, consider the code below:
+
+List<? Super B> ty;
+if(userInput == 'A'){
+      ty = new ArrayList<A>();
+}else{
+      ty = new ArrayList<B>();
+}
+
+What is the generic type of the instantiation part of 'ty'? Is it <A> or <B>? The answer depends on the value of 'userInput', so we can't predict it without actually running the program. This is why compiler never deals with instantation types.
+
+Because of the above reason, to be able to compile, the argument you pass to ty.add(-) method, MUST be something that can be accepted with any possible instantiation generic type. If it was an object of the class B or of a SUB class of B, then it can be accepted with all possible instantiation generic types. If it was an object of A, it cannot be accepted if the instantiation generic type was <B>. Therefore, when we say <? Super B> at the reference type of a collection or a map, we can accept only objects of B or of SUB TYPES of B. Line-19 gives a compile time error because of this reason.
+
+If line-18 of the existing program was replaced with,
+          "List<? super A> ty=new ArrayList<A>();"
+will compile successfully.
+
+In this case, the add(-) method can accept objects of A, or of sub types of A. Therefore, Answer-E is correct.
+
+Answer-H is correct, because "new A()", "new B()", and "new C()" can be referred by an "A" reference.
+Click here to discuss anything about this question with a dedicated tutor.
+
+
+------------------------------------------------------------------------------------------------------
+
+
+interface XInterface{
+  public abstract void runDemo();
+}
+
+abstract class XClass implements XInterface{
+  String s="Java";
+  public abstract void runDemo();
+  {s="C++";}
+}
+
+public class YClass extends XClass implements XInterface{
+  {s="C#";}
+  public void runDemo(){
+    System.out.println("Demo"+super.s);
+  }
+  public static void main(String args[]){
+    XInterface xi=new YClass();
+    xi.runDemo();
+  }
+}
+
+		
+	Explanation...
+	
+	
+	Because the main method resides in YClass, that class has to be loaded into the memory, before the execution of the main method can begin. However, since YClass extends XClass, the JVM knows that  XClass must be loaded, before it can load YClass.
+
+That is not the story we need to concern in this question, however. We need to concern more about how obects are created. The thing is, objects are instantiated in the same order as I described above. The story begins with the statement " XInterface xi=new YClass();", which attempts to instantiate YClass. Since YClass extends XClass, it will be instantiated at the first place.
+
+When instantiating XClass, the object initialization block of XClass assigns the String value "C++" to the variable "s".
+
+The instantiation of the class XClass is now completed. Next, it turns at YClass, so the object initialization block of the YClass will be executed!
+
+The object initialization block for the YClass now assigns "C#" to the variable "s".
+
+
+FYI:
+Object Initialization Block:  { }
+Static Initialization Block:    static{ }
+Click here to discuss anything about this question with a dedicated tutor.
+
+------------------------------------------------------------------------------------------------------
+
+
+
+
+-------------E-----------O------------F------------
+
+
+
+
+------------------------------------------------------------------------------------------------------
